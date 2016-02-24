@@ -13,7 +13,6 @@ require_once 'application.php';
         <link rel="icon" href="./images/bootstrap.ico">
         <link href="BootStrap/css/bootstrap.css" rel="stylesheet">
         <link href="./css/style.css" rel="stylesheet">
-        <title>JogginGeneva</title>
         <script
             src="http://maps.googleapis.com/maps/api/js">
         </script>
@@ -21,16 +20,16 @@ require_once 'application.php';
             function initialize() {
                 var mapProp = {
                     center: new google.maps.LatLng(51.508742, -0.120850),
-                    zoom: 5,
+                    zoom: 17,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
                 var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
             }
             google.maps.event.addDomListener(window, 'load', initialize);
         </script>
-        
+        <title>JogginGeneva</title>
     </head>
-    <body onload="initialize()">
+    <body>
         <!-- MENU -->
         <div class="navbar-wrapper">
             <div class="container">
@@ -60,7 +59,7 @@ require_once 'application.php';
                 <!-- Contenue de la liste -->
                 <div class="panel-body">
                     <ul class="list-group">
-                        <li class="list-group-item">test1</li>
+                        <li class="list-group-item">test1<span class="badge"><a href="index.php"><span class="glyphicon glyphicon-info-sign"></span></a></span></li>
                         <li class="list-group-item">test2</li>
                         <li class="list-group-item">test3</li>
                         <li class="list-group-item">test4</li>
@@ -68,14 +67,12 @@ require_once 'application.php';
                     </ul>
                 </div>
             </div>
-            <div id="googleMap" style="
-                 width:500px;
-                 height:380px;
-                 float: right;
-                 display: block;
-                 ">
-
+            <div id="googleMap" style="width:100%;height:380px;"></div>
+            <div class="col-sm-6 map">
+                <div class="google-map-canvas" id="map-canvas">
+                </div>
             </div>
+
             <!-- CONTENT INFORMATION -->
             <div class="panel panel-info">
                 <div class="panel-body">
@@ -93,7 +90,7 @@ require_once 'application.php';
         <!-- Bootstrap script  -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-        <script src="./BootStrap//js/bootstrap.min.js"></script>
+        <script src="./BootStrap/js/bootstrap.min.js"></script>
         <script>
             $(".panel-dropdown").find('.panel-heading').click(function () {
                 $(this).find('span').toggleClass('glyphicon-triangle-bottom glyphicon-triangle-top');

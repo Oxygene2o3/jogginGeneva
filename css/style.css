@@ -1,67 +1,85 @@
 
 /* Modification du Menu */
 .navbar-inverse {
-  background-color: #080808;
-  border-radius: 4px;
-  border-bottom: 2px solid #288efc;
+    background-color: #080808;
+    border-radius: 4px;
+    border-bottom: 2px solid #288efc;
 }
 .navbar-inverse .navbar-brand {
-  color: #288efc;
+    color: #288efc;
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
-  background-color: transparent;
+    background-color: transparent;
 }
 .navbar-inverse .navbar-text {
-  color: white;
+    color: white;
 }
 .navbar-inverse .navbar-nav > li > a {
-  color: white;
+    color: white;
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
-  color : #288efc;
-  background-color: transparent;
+    color : #288efc;
+    background-color: transparent;
 }
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
-  color: #288efc;
+    color: #288efc;
 }
 
 /* Modification du texte de presentation */
 .panel-primary {
-  border-color: white ;
+    border-color: white ;
 }
 .panel-primary p {
-  margin: 1px 1px 1px;  
+    margin: 1px 1px 1px;  
 }
 
 /* Liste de parcour */
 .list-group {
-  padding-left: 0;
-  margin-bottom: 0px;
+    padding-left: 0;
+    margin-bottom: 0px;
+    height: 150px;
+    overflow: auto;
 }
 .list-group-item {
-  position: relative;
-  display: block;
-  border: 1px solid #337ab7;
+    position: relative;
+    display: block;
+    border: 1px solid #337ab7;
 }
 .panel-default {
-  border-color: #337ab7;
-  width: 50%;
+    border-color: #337ab7;
+    width: 100%;
 }
 .panel-default > .panel-heading {
-  color: #333;
-  border-color: #337ab7;
-  background-color: white;
+    color: #333;
+    border-color: #337ab7;
+    background-color: white;
 }
-
 
 /*Modification du texte d'information'*/
 .panel-info {
-  border-color: white;
+    border-color: white;
 }
 .panel-info p {
-  margin: 0px 0px 0px;  
+    margin: 0px 0px 0px;  
 }
+
+/* Modification du badge pour la liste */
+.badge {
+  display: inline-block;
+  min-width: 10px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-color: white;
+  border-radius: 10px;
+}
+
