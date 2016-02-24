@@ -3,7 +3,7 @@ session_start();
 require_once 'application.php';
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,9 +14,23 @@ require_once 'application.php';
         <link href="BootStrap/css/bootstrap.css" rel="stylesheet">
         <link href="./css/style.css" rel="stylesheet">
         <title>JogginGeneva</title>
+        <script
+            src="http://maps.googleapis.com/maps/api/js">
+        </script>
+        <script>
+            function initialize() {
+                var mapProp = {
+                    center: new google.maps.LatLng(51.508742, -0.120850),
+                    zoom: 5,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+            }
+            google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
+        
     </head>
-    <body>
-
+    <body onload="initialize()">
         <!-- MENU -->
         <div class="navbar-wrapper">
             <div class="container">
@@ -26,11 +40,14 @@ require_once 'application.php';
             </div>
         </div>
 
-        <!-- CONTENT -->
+        <!-- CONTENT PRESENTATION -->
         <div class="container marketing">
             <div class="panel panel-primary">
-                <p>...</p>
+                <div class="panel-body">
+                    <p>texte de présentation</p>
+                </div>
             </div>
+
             <!-- Liste parcours -->
             <div class="panel panel-default panel-dropdown">
                 <div class="panel-heading">
@@ -39,6 +56,7 @@ require_once 'application.php';
                         <span class="pull-right glyphicon glyphicon-triangle-top"></span>
                     </h3>
                 </div>
+
                 <!-- Contenue de la liste -->
                 <div class="panel-body">
                     <ul class="list-group">
@@ -50,21 +68,32 @@ require_once 'application.php';
                     </ul>
                 </div>
             </div>
-            
+            <div id="googleMap" style="
+                 width:500px;
+                 height:380px;
+                 float: right;
+                 display: block;
+                 ">
+
+            </div>
+            <!-- CONTENT INFORMATION -->
             <div class="panel panel-info">
-                <p>...</p>
+                <div class="panel-body">
+                    <p>Information sur le parcour</p>
+                </div>
             </div>
 
             <!-- FOOTER -->
             <footer>
                 <p class="pull-right"><a href="#">&#x23CF;</a></p>
-                <p>&copy; 2015 Dello Buono Fabio</p>
+                <p>&copy;</p>
             </footer>
         </div>
+
         <!-- Bootstrap script  -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-        <script src="./js/bootstrap.min.js"></script>
+        <script src="./BootStrap//js/bootstrap.min.js"></script>
         <script>
             $(".panel-dropdown").find('.panel-heading').click(function () {
                 $(this).find('span').toggleClass('glyphicon-triangle-bottom glyphicon-triangle-top');

@@ -25,7 +25,7 @@ function ConnectDB() {
 function menu() {
     $PageName = basename($_SERVER["PHP_SELF"]);
 
-    if (empty($_SESSION['user_logged'])) {
+    if (empty($_SESSION['logged'])) {
         //if the user is not connected
         $menu = array("index.php" => "Home",
             "login.php" => "Login",
@@ -47,7 +47,7 @@ function menu() {
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">JogginGeneva</a>
+                <a class="navbar-brand" href="index.php">JogginGeneva</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
@@ -61,7 +61,6 @@ function menu() {
                         }
                     }
                     ?>
-
                 </ul>
             </div>
         </div>
