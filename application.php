@@ -197,3 +197,54 @@ function CheckLogin($name, $password) {
     // Retourne un bool qui indique si le login est reussi
     return $logIsCorrect;
 }
+
+function getCourses($difficulte, $longueur, $idQuartier, $idCourse = false) {
+    if (!$idCourse) {
+        $table = [];
+        $myDB = connectDB();
+        $myRequest = $myDB->prepare("SELECT idParcours, NomParcours, LongueurParcours, DifficulteParcours, parcours.idQuartier, NomQuartier FROM parcours, quartier WHERE parcours.idQUartier = quartier.idQuartier AND ((DifficulteParcours = '$difficulte' OR '$difficulte' ='') AND (LongueurParcours <= '$longueur' OR '$longueur'= '') AND (parcours.idQuartier = '$idQuartier' OR '$idQuartier' = ''))");
+        $myRequest->execute();
+        while ($data = $myRequest->fetch(PDO::FETCH_ASSOC)) {
+            $table[] = $data;
+        }
+        return $table;
+    } else {
+        $table = [];
+        $myDB = connectDB();
+        $myRequest = $myDB->prepare("SELECT idParcours, NomParcours, LongueurParcours, DifficulteParcours, parcours.idQuartier, NomQuartier FROM parcours, quartier WHERE parcours.idQUartier = quartier.idQuartier AND idParcours = ?");
+        $myRequest->execute(array($idCourse));
+        $data = $myRequest->fetch(PDO::FETCH_ASSOC);
+        return $data;
+    }
+}
+
+function printQuartier(){
+    $myDB = connectDB();
+        $myRequest = $myDB->prepare("SELECT idQuartier, NomQuartier FROM quartier"); 
+        $myRequest->execute();
+        echo '<select name="filtreQuartier">';
+        echo '<option value=""></option>';
+        while ($data = $myRequest->fetch(PDO::FETCH_ASSOC)) {
+            echo '<option value="'.$data["idQuartier"].'">'.$data["NomQuartier"].'</option>';
+        }      
+        echo '</select>';
+}
+
+function showCourses($difficulte, $longueur, $idQuartier) {
+    $courses = getCourses($difficulte, $longueur, $idQuartier);  
+    if (empty($courses)){
+        echo 'Aucun parcours ne correspond a vos critaires';
+    }
+    foreach ($courses as $value) {
+        echo '<li class="list-group-item">';
+        echo '<table class="listeParcours">';
+        echo '<tr>';
+        echo '<td>' . $value["NomParcours"] . '</td>';
+        echo '<td>' . number_format($value["LongueurParcours"], 1, ',', ' ') . ' </td>';
+        echo '<td>' . $value["DifficulteParcours"] . '</td>';
+        echo '<td>' . $value["NomQuartier"] . '</td>';
+        echo '</tr>';
+        echo '</table>';
+        echo '</li>';
+    }
+}
