@@ -32,44 +32,7 @@ require_once 'application.php';
         </div>
 
         <!-- CONTENT PRESENTATION -->
-        <div class="container marketing">
-            <div class="panel panel-primary">
-                <div class="panel-body">
-                    <p>texte de présentation</p>
-                </div>
-            </div>
-
-            <!-- Liste parcours -->
-            <div class="panel panel-default panel-dropdown">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Liste de parcours
-                        <span class="pull-right glyphicon glyphicon-triangle-top"></span>
-                    </h3>
-                </div>
-
-                <!-- Contenue de la liste -->
-                <div class="panel-body">
-                    <ul class="list-group">
-                        <li class="list-group-item">test1<span class="badge"><a href="index.php"><span class="glyphicon glyphicon-info-sign"></span></a></span></li>
-                        <li class="list-group-item">test2</li>
-                        <li class="list-group-item">test3</li>
-                        <li class="list-group-item">test4</li>
-                        <li class="list-group-item">test5</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- MAP -->
-            <div id="Map">
-                <p>Veuillez patienter pendant le chargement de la carte...</p>
-            </div>
-
-            <!-- CONTENT INFORMATION -->
-            <div class="panel panel-info">
-                <div class="panel-body">
-                    <p>Information sur le parcour</p>
-                </div>
-            </div>
+        <div class="container marketing">         
 
             <!-- FOOTER -->
             <footer>

@@ -86,7 +86,7 @@ if(!empty($NewData)){
                             <div class="modal-body">
                                 <div class="input-group input-group-lg form-group">
                                     <input type="text" class="form-control" placeholder="Username"  name='NewName' required aria-describedby="basic-addon2">
-                                    <span class="input-group-addon" id="basic-addon2">★</span>
+                                    <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-user"></span></span>
                                 </div> 
                                 <div class="input-group input-group-lg form-group">
                                     <input type="password" class="form-control" placeholder="Password" name='NewPassword' required aria-describedby="basic-addon2">

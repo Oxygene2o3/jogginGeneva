@@ -27,15 +27,15 @@ function menu() {
 
     if (empty($_SESSION['logged'])) {
         //if the user is not connected
-        $menu = array("index.php" => "Home",
-            "login.php" => "Login",
-            "Register.php" => "Register",
-            "Detail" => "Detail"
+        $menu = array("index.php" => '<span class="glyphicon glyphicon-home"></span> Home',
+            "login.php" => '<span class="glyphicon glyphicon-user"></span> Login',
+            "profil.php" => '<span class="glyphicon glyphicon-info-sign"></span> Profil'
         );
     } else {
         //if the user is connected 
         $menu = array("index.php" => "Home",
-            "logout.php" => "Logout"
+            "logout.php" => "Logout",
+            "profil.php" => "Profil"
         );
     }
     ?>
