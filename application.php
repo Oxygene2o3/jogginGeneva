@@ -108,3 +108,49 @@ function CheckLogin($name, $password) {
     return $data;
     // return data user
 }
+
+/**
+ * Affiche les différentes informations sur l'utilisateur.
+ * En attente de l'ajout du nombre de likes et le nombre de parcours effectués.
+ * @param string $username		Indique l'utilisaeur en question
+ */
+function myAccount($username) {
+    $db = Connexiondb();
+    $sql = 'SELECT * FROM utilisateur WHERE NomUtilisateur = :username';
+    $requete = $bdd->prepare($sql);
+    $requete->execute(array());
+
+    echo '<li class="list-group-item">';
+    echo '<table class="listeParcours">';
+    echo '<thead>';
+    $firstLine = true;
+
+    // Met tout les resultats dans un tableau associatif
+    while (($data = $requete->fetch(PDO::FETCH_ASSOC)) != false) {
+        if ($firstLine) {
+            echo '<tr>';
+            foreach ($data as $key => $val) {
+                echo '<th style="text-align: center;">' . $key . '</th>';
+            }
+
+            echo '</tr>';
+            echo '</thead>';
+
+
+            $firstLine = false;
+        }
+        echo '<tbody>';
+        echo '<tr>';
+        
+        foreach ($data as $key => $val) {
+            
+            echo '<td>' . $val . '</td>';
+            
+        }
+        echo '</tr>';
+    }
+    echo '</tbody>';
+    echo "</table>";
+    echo '</li>';
+
+}
