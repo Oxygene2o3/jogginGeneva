@@ -1,43 +1,67 @@
 <?php
 
 /**
- * Allows connection to the DB
+ * Fonction de connexion à la DB
+ * 
  * @staticvar type $maDB
- * @return  DB
+ * 
+ * @return  DB              Retourne la base de données
  */
 function ConnectDB() {
+    // Création d'une variable pour la DB
     static $maDB = null;
+    
+    // Test en cas d'exeption
     try {
+        // Si la base de données est bien null
         if ($maDB == null) {
-            $maDB = new PDO("mysql:host=localhost;dbname=joggingeneva;charset=utf8", 
-                    'Jeff', // username 
-                    'Super',    // mdp 
+            // Connexion à la DB via PDO
+            $maDB = new PDO("mysql:host=localhost;dbname=db_maxyster;charset=utf8", 'maxyster', // username 
+                    'Super', // mdp 
                     array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_EMULATE_PREPARES => false));
+                PDO::ATTR_EMULATE_PREPARES => false));
         }
-        
     } catch (Exception $e) {
-        die("R.I.P in peace " . $e->getMessage());
+        // En cas d'erreur stop la fonction et retourne un message d'erreur
+        die("Une erreur est survenue lors de la connexion." . $e->getMessage());
     }
+    
+    // Retourne la DB
     return $maDB;
 }
 
+/**
+ * Fonction d'affichage du menu
+ * 
+ * @return  void    Ne retourne rien
+ */
 function menu() {
+    // Recupere le nom de la page dans une variable
     $PageName = basename($_SERVER["PHP_SELF"]);
 
+    // Si personne n'est connecté
     if (empty($_SESSION['logged'])) {
-        //if the user is not connected
-        $menu = array("index.php" => '<span class="glyphicon glyphicon-home"></span> Home',
-            "login.php" => '<span class="glyphicon glyphicon-user"></span> Login',
-            "profil.php" => '<span class="glyphicon glyphicon-info-sign"></span> Profil'
+        // Ajoute du code HTML pour crée un menu d'utilisateur non-connecté
+        $menu = array(  "index.php"   => '<span class="glyphicon'
+                                      .  ' glyphicon-home"></span> Home',
+            
+                        "login.php"   => '<span class="glyphicon'
+                                      .  ' glyphicon-user"></span> Login',
+            
+                        "profil.php"  => '<span class="glyphicon'
+                                      .  ' glyphicon-info-sign"></span> Profil'
         );
     } else {
-        //if the user is connected 
-        $menu = array("index.php" => "Home",
-            "logout.php" => "Logout",
-            "profil.php" => "Profil"
+        // Sinon l'utilisateur est connecté
+        // Ajoute du code HTML pour crée un menu d'utilisateur connecté
+        $menu = array(  "index.php"   => "Home",
+            
+                        "logout.php"  => "Logout",
+            
+                        "profil.php"  => "Profil"
         );
     }
+    // La suite est du code pour du BOOTSTRAP
     ?>
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container"><div class="navbar-header">
@@ -69,139 +93,107 @@ function menu() {
 }
 
 /**
- * Add a new user in the DB 
+ * Fonction d'ajout d'un nouvel utilisateur 
+ * 
  * @staticvar type $maRequete
- * @param type $name
- * @param type $password
- * @return string if the user name is already assigned 
+ * 
+ * @param type $name        Le pseudo entré dans le formulaire d'inscription
+ * @param type $password    Le mdp entré dans le formulaire d'inscription
+ * 
+ * @return boolean          Si le pseudo est déjà utilisé retourne FAUX
+ *                          Sinon retourne VRAIE
  */
 function AddUser($name, $password) {
-    static $maRequete = null;
-    $error = false;
-
-    //Prépaper la requête lors du premier appel
-    if ($maRequete == null) {
-        $maRequete = ConnectDB()->prepare("INSERT INTO t_user (name_user, password_user)
-                                                VALUES        (        ?,             ?)");
-    }
-
+    // Initialisation d'une variable statiq pour la requete sql
+    static $maRequete = "";
+    
+    // Initialisation de la requete sql
+    $sql = "INSERT INTO t_user "
+            . "(name_user, password_user) VALUES (?, ?)";
+    
+    // Test en cas d'exeption
     try {
-        //Enregistrer les données
+        // Si la requete est bien null
+        if($maRequete == null){
+            // Connexion à la DB et préparation de la requete sql
+            $maRequete = ConnectDB()->prepare($sql);
+        }
+    } catch (Exception $e) {
+        // En cas d'erreur stop la fonction et retourne un message d'erreur
+        die("Une erreur est survenue lors de la préparation de la requete."
+                . $e->getMessage());
+    }
+    
+    // Initialisation d'une variable indique si l'ajout est reussi
+    $addIsSucess = false;
+
+    // Test pour les exeption
+    try {
+        // Execution de la requete sql avec les variables
+        // en parametre de la fonction
         $maRequete->execute(array($name, $password));
     } catch (Exception $e) {
-        $error = 'this name is already assigned';
+        // En cas d'exeption retourne false 
+        // pour indiquer que l'ajout est un echec
+        $addIsSucess = false;
     }
-    return $error;
+
+    // Retourne un bool qui indique si l'ajout est reussi
+    return $addIsSucess;
 }
 
 /**
- * check if the user is in the DB
- * @param string $name
- * @param string $password
+ * Fonction qui verifie la connexion d'un utilisateur
+ * 
+ * @staticvar type $maRequete
+ * 
+ * @param string $name      Le pseudo entré lors de la connexion
+ * @param string $password  Le mdp entré lors de la connexion
+ * 
+ * @return boolean          Retourne VRAIE si la connexion et reussie
+ *                          FAUX si la connexion n'est pas établie
  */
 function CheckLogin($name, $password) {
-    $dtb = ConnectDB();
-    $sql = "Select * from t_user where name_user = ? AND password_user=?";
-    $maRequete = $dtb->prepare($sql);
-    $maRequete->execute(array($name, $password));
-    $data = $maRequete->fetch(PDO::FETCH_ASSOC);
-    return $data;
-    // return data user
-}
+    // Initialisation d'une variable statiq pour la requete sql
+    static $maRequete = "";
+    
+    // Initialisation de la requete sql
+    $sql = "Select * from t_user where name_user = ? AND password_user = ?";
 
-/**
- * Affiche les différentes informations sur l'utilisateur.
- * En attente de l'ajout du nombre de likes et le nombre de parcours effectués.
- * @param string $username		Indique l'utilisaeur en question
- */
-function myAccount($username) {
-    $db = Connexiondb();
-    $sql = 'SELECT * FROM utilisateur WHERE NomUtilisateur = :username';
-    $requete = $bdd->prepare($sql);
-    $requete->execute(array());
-
-    echo '<li class="list-group-item">';
-    echo '<table class="listeParcours">';
-    echo '<thead>';
-    $firstLine = true;
-
-    // Met tout les resultats dans un tableau associatif
-    while (($data = $requete->fetch(PDO::FETCH_ASSOC)) != false) {
-        if ($firstLine) {
-            echo '<tr>';
-            foreach ($data as $key => $val) {
-                echo '<th style="text-align: center;">' . $key . '</th>';
-            }
-
-            echo '</tr>';
-            echo '</thead>';
-
-
-            $firstLine = false;
+    // Test en cas d'exeption
+    try {
+        // Si la requete est bien null
+        if($maRequete == null){
+            // Connexion à la DB et préparation de la requete sql
+            $maRequete = ConnectDB()->prepare($sql);
         }
-        echo '<tbody>';
-        echo '<tr>';
-        
-        foreach ($data as $key => $val) {
-            
-            echo '<td>' . $val . '</td>';
-            
-        }
-        echo '</tr>';
+    } catch (Exception $e) {
+        // En cas d'erreur stop la fonction et retourne un message d'erreur
+        die("Une erreur est survenue lors de la préparation de la requete."
+                . $e->getMessage());
     }
-    echo '</tbody>';
-    echo "</table>";
-    echo '</li>';
-}
 
-function getCourses($difficulte, $longueur, $idQuartier, $idCourse = false) {
-    if (!$idCourse) {
-        $table = [];
-        $myDB = connectDB();
-        $myRequest = $myDB->prepare("SELECT idParcours, NomParcours, LongueurParcours, DifficulteParcours, parcours.idQuartier, NomQuartier FROM parcours, quartier WHERE parcours.idQUartier = quartier.idQuartier AND ((DifficulteParcours = '$difficulte' OR '$difficulte' ='') AND (LongueurParcours <= '$longueur' OR '$longueur'= '') AND (parcours.idQuartier = '$idQuartier' OR '$idQuartier' = ''))");
-        $myRequest->execute();
-        while ($data = $myRequest->fetch(PDO::FETCH_ASSOC)) {
-            $table[] = $data;
-        }
-        return $table;
-    } else {
-        $table = [];
-        $myDB = connectDB();
-        $myRequest = $myDB->prepare("SELECT idParcours, NomParcours, LongueurParcours, DifficulteParcours, parcours.idQuartier, NomQuartier FROM parcours, quartier WHERE parcours.idQUartier = quartier.idQuartier AND idParcours = ?");
-        $myRequest->execute(array($idCourse));
-        $data = $myRequest->fetch(PDO::FETCH_ASSOC);
-        return $data;
+    // Test pour les exeption
+    try {
+        // Execution de la requete sql avec les variables
+        // en parametre de la fonction
+        $maRequete->execute(array($name, $password));
+        // Recuperation de l'entrée retournée
+        $data = $maRequete->fetch(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        // En cas d'exeption vide data pour annuller le login
+        $data = "";
     }
-}
 
-function printQuartier(){
-    $myDB = connectDB();
-        $myRequest = $myDB->prepare("SELECT idQuartier, NomQuartier FROM quartier"); 
-        $myRequest->execute();
-        echo '<select name="filtreQuartier">';
-        echo '<option value=""></option>';
-        while ($data = $myRequest->fetch(PDO::FETCH_ASSOC)) {
-            echo '<option value="'.$data["idQuartier"].'">'.$data["NomQuartier"].'</option>';
-        }      
-        echo '</select>';
-}
+    // Initialisation d'une variable indique si le login est reussi
+    $logIsCorrect = false;
 
-function showCourses($difficulte, $longueur, $idQuartier) {
-    $courses = getCourses($difficulte, $longueur, $idQuartier);  
-    if (empty($courses)){
-        echo 'Aucun parcours ne correspond a vos critaires';
+    // Si data n'est pas vide
+    if (!empty($data)) {
+        // Le login est reussi et donc mets true à la variable
+        $logIsCorrect = true;
     }
-    foreach ($courses as $value) {
-        echo '<li class="list-group-item">';
-        echo '<table class="listeParcours">';
-        echo '<tr>';
-        echo '<td>' . $value["NomParcours"] . '</td>';
-        echo '<td>' . number_format($value["LongueurParcours"], 1, ',', ' ') . ' </td>';
-        echo '<td>' . $value["DifficulteParcours"] . '</td>';
-        echo '<td>' . $value["NomQuartier"] . '</td>';
-        echo '</tr>';
-        echo '</table>';
-        echo '</li>';
-    }
-}
 
+    // Retourne un bool qui indique si le login est reussi
+    return $logIsCorrect;
+}
