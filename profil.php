@@ -33,7 +33,22 @@ require_once 'application.php';
 
         <!-- CONTENT PRESENTATION -->
         <div class="container marketing">         
-
+            <div class="panel panel-default" id="borderUser">
+                <div class="panel-body" id='banniereUser'>
+                    <img src='images/default_avatar_560d512bd0fc2.gif' alt="test" class="img-circle">
+                </div>
+            </div>
+            <div class="btn-group btn-group-justified" role="group">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" id="btnChoice">Détail</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" id="btnChoice">Favori</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" id="btnChoice">Modification</button>
+                </div>
+            </div>
             <!-- FOOTER -->
             <footer>
                 <p class="pull-right"><a href="#">&#x23CF;</a></p>
@@ -45,19 +60,6 @@ require_once 'application.php';
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
         <script src="./BootStrap/js/bootstrap.min.js"></script>
-        <script>
-                initialize();
-        </script>
-        <script>
-            $(".panel-dropdown").find('.panel-heading').click(function () {
-                $(this).find('span').toggleClass('glyphicon-triangle-bottom glyphicon-triangle-top');
-                $(this).parent(".panel").find(".panel-body").first().slideToggle();
-            });
-
-            $(".panel-dropdown").find('.panel-heading').click();
-            $('<span>', {
-                class: "pull-right glyphicon glyphicon-triangle-bottom"
-            }).appendTo($(".panel-dropdown").find('.panel-heading').find('h4'));
-        </script>
-    </body>
+    </script>
+</body>
 </html>

@@ -108,7 +108,7 @@ if(!empty($NewData)){
             <!-- FOOTER -->
             <footer>
                 <p class="pull-right"><a href="#">&#x23CF;</a></p>
-                <p>&copy; 2015 Dello Buono Fabio</p>
+                <p>&copy; </p>
             </footer>
         </div>
 
