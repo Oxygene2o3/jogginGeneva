@@ -110,3 +110,12 @@
     height: 45px;
     font-size: 23px;
 }
+
+.listeParcours tr td{
+    width: 260px;
+    text-align: center;
+    float: left;
+}
+
+
+

@@ -1,6 +1,9 @@
 <?php
 session_start();
 require_once 'application.php';
+$difficulte = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreDifficulte"] : '';
+$longueur = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreLongueur"] : '';
+$idQuartier = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreQuartier"] : '';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -51,11 +54,24 @@ require_once 'application.php';
                 <!-- Contenue de la liste -->
                 <div class="panel-body">
                     <ul class="list-group">
-                        <li class="list-group-item">test1<span class="badge"><a href="index.php"><span class="glyphicon glyphicon-info-sign"></span></a></span></li>
-                        <li class="list-group-item">test2</li>
-                        <li class="list-group-item">test3</li>
-                        <li class="list-group-item">test4</li>
-                        <li class="list-group-item">test5</li>
+                        <form action="" method="post">
+                            <table class="listeParcours">
+                                <tr>                                
+                                    <td><input type="submit" name="filtre" value="Filtrer" /></td>
+                                    <td>Logueur max : <input type="text" name="filtreLongueur"></td>
+                                    <td>Difficulté : 
+                                        <select name="filtreDifficulte">
+                                            <option value=""></option>
+                                            <option value="Facile">Facile</option>
+                                            <option value="Moyen">Moyen</option>
+                                            <option value="Difficile">Difficile</option>
+                                        </select></td>
+                                    <td>Quartier : <?php printQuartier() ?></td>  
+                                </tr> 
+                                <tr><td><p></p></td></tr>
+                            </table>
+                        </form>
+                        <?php showCourses($difficulte, $longueur, $idQuartier) ?>
                     </ul>
                 </div>
             </div>
