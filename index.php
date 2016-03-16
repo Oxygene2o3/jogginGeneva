@@ -19,7 +19,7 @@ require_once 'application.php';
         <script
             src="./js/JavaScript.js">
         </script>
-        <title>JogginGeneva</title>
+        <title>JogginGeneva Test</title>
     </head>
     <body>
         <!-- MENU -->
