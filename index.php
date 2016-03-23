@@ -71,12 +71,12 @@ $idQuartier = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreQuartier"] : '';
                                 </div>    
                                 <div class="btn-group" role="group">
                                     <select class="form-control" id="sel1" name="filtreQuartier">
-                                        <?php //printQuartier() ?>
+                                        <?php printQuartier() ?>
                                     </select>
                                 </div>  
                             </div>
                         </form>
-                        <?php //showCourses($difficulte, $longueur, $idQuartier) ?>
+                        <?php showCourses($difficulte, $longueur, $idQuartier) ?>
                     </ul>
                 </div>
             </div>

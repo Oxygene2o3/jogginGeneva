@@ -356,7 +356,7 @@ function like($trip, $user) {
 }
 
 function myAccount($username) {
-    $db = Connexiondb();
+    $db = ConnectDB();
     $sql = 'SELECT * FROM utilisateur WHERE NomUtilisateur = :username';
     $requete = $bdd->prepare($sql);
     $requete->execute(array());
@@ -406,7 +406,7 @@ function myAccount($username) {
 function favorite($idUtilisateur, $idParcours){
     
     // Connexion bade de données
-    $db = Connexiondb();
+    $db = ConnectDB();
     
     // Ajouter le l'id du parcours et l'id de l'utlisateur dans la table "favoris"
     $sqlAdd = ("INSERT INTO favoris (idUtilisateur,idParcours) VALUES (?,?);");
