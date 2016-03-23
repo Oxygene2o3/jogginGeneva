@@ -57,11 +57,11 @@ if(empty($Verif)){
             <form action="#" method="post">
                 <div class="input-group input-group-lg form-group">
                     <input type="text" class="form-control" placeholder="Username" name='UserName' required aria-describedby="basic-addon2">
-                    <span class="input-group-addon" id="basic-addon2">★</span>
+                    <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-user"></span></span>
                 </div> 
                 <div class="input-group input-group-lg form-group">
                     <input type="password" class="form-control" placeholder="Password" name='UserPassword' required aria-describedby="basic-addon2">
-                    <span class="input-group-addon" id="basic-addon2">★</span>
+                    <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-lock"></span>
                 </div> 
                 <?php echo $error ?>
                 <br>
@@ -90,11 +90,11 @@ if(empty($Verif)){
                                 </div> 
                                 <div class="input-group input-group-lg form-group">
                                     <input type="password" class="form-control" placeholder="Password" name='NewPassword' required aria-describedby="basic-addon2">
-                                    <span class="input-group-addon" id="basic-addon2">★</span>
+                                    <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-lock"></span></span>
                                 </div> 
                                 <div class="input-group input-group-lg form-group">
                                     <input type="password" class="form-control" placeholder="Confirme Password" required name='NewPasswordConfirmed' aria-describedby="basic-addon2">
-                                    <span class="input-group-addon" id="basic-addon2">★</span>
+                                    <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-lock"></span></span>
                                 </div> 
                             </div>
                             <div class="modal-footer">
