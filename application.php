@@ -471,3 +471,32 @@ function favorite($idUtilisateur, $idParcours){
     $add->execute(array($idUtilisateur,$idParcours));        
     
 }
+
+/**
+ *
+ * Modifie les informations d'un utilisateur.
+ *
+ * @param   int         $idUtilisateur          ID de l'utilisateur.
+ * @param   string      $nomUtilisateur         Nom de l'utilisateur.
+ * @param   string      $mdpUtilisateur         Password
+ */
+function updateUser($idUtilisateur, $nomUtilisateur, $mdpUtilisateur){
+    
+    
+    $db = Connexiondb();
+    
+    
+    $sqlUpdate = ("UPDATE utilisateur SET NomUilisateur=:nomUtilisateur, mdpUtilisateur=:mdpUtilisateur WHERE idUtilisateur=:idUtilisateur;");
+    
+    
+    $update = $db->prepare($sqlUpdate);
+    
+    // Nous lions les valeurs aux variables
+    $update->bindValue(":nomUtilisateur", $nomUtilisateur);
+    $update->bindValue(":mdpUtilisateur", $mdpUtilisateur);
+    $update->bindValue(":idUtilisateur", $idUtilisateur);
+    
+    // Nous exécutons
+    $update->execute();        
+    
+}
