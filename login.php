@@ -8,7 +8,7 @@ if (isset($_REQUEST["modalForm"])) {
     $NewPasswordConfirmed = filter_input(INPUT_POST, 'NewPasswordConfirmed', FILTER_SANITIZE_SPECIAL_CHARS);
     if ((!empty($NewName)) && (!empty($NewPassword)) && (!empty($NewPasswordConfirmed))) {
         if ($NewPassword == $NewPasswordConfirmed)
-            $NewData = AddUser($NewName, $NewPassword);
+            $Verif = AddUser($NewName, $NewPassword);
     }
 }
 
@@ -22,7 +22,7 @@ if (isset($_REQUEST["btnSubmit"])) {
     }
 }
 
-if(!empty($NewData)){
+if(empty($Verif)){
     $error = '<span id="helpBlock" class="help-block">this name is already assigned</span>';  
 }else{
     $error = "";
