@@ -40,25 +40,26 @@ function menu() {
     $PageName = basename($_SERVER["PHP_SELF"]);
 
     // Si personne n'est connecté
-    if (empty($_SESSION['logged'])) {
+    if (empty($_SESSION['user_logged'])) {
         // Ajoute du code HTML pour crée un menu d'utilisateur non-connecté
         $menu = array(  "index.php"   => '<span class="glyphicon'
                                       .  ' glyphicon-home"></span> Home',
             
                         "login.php"   => '<span class="glyphicon'
-                                      .  ' glyphicon-user"></span> Login',
-            
-                        "profil.php"  => '<span class="glyphicon'
-                                      .  ' glyphicon-info-sign"></span> Profil'
+                                      .  ' glyphicon-user"></span> Login'  
+                        
         );
     } else {
         // Sinon l'utilisateur est connecté
         // Ajoute du code HTML pour crée un menu d'utilisateur connecté
-        $menu = array(  "index.php"   => "Home",
+        $menu = array(  "index.php"   => '<span class="glyphicon'
+                                      .  ' glyphicon-home"></span> Home',
             
-                        "logout.php"  => "Logout",
+                        "logout.php"  => '<span class="glyphicon '
+                                      . 'glyphicon-remove"></span> Logout',
             
-                        "profil.php"  => "Profil"
+                        "profil.php"  => '<span class="glyphicon'
+                                      .  ' glyphicon-info-sign"></span> Profil'
         );
     }
     // La suite est du code pour du BOOTSTRAP
