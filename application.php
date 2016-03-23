@@ -328,12 +328,10 @@ function printQuartier() {
     $myDB = connectDB();
     $myRequest = $myDB->prepare("SELECT idQuartier, NomQuartier FROM quartier");
     $myRequest->execute();
-    echo '<select name="filtreQuartier">';
     echo '<option value=""></option>';
     while ($data = $myRequest->fetch(PDO::FETCH_ASSOC)) {
         echo '<option value="' . $data["idQuartier"] . '">' . $data["NomQuartier"] . '</option>';
     }
-    echo '</select>';
 }
 
 /**
