@@ -108,8 +108,8 @@ function AddUser($name, $password) {
     static $maRequete = "";
     
     // Initialisation de la requete sql
-    $sql = "INSERT INTO t_user "
-            . "(name_user, password_user) VALUES (?, ?)";
+    $sql = "INSERT INTO utilisateur "
+            . "(NomUtilisateur, mdpUtilisateur) VALUES (?, ?)";
     
     // Test en cas d'exeption
     try {
@@ -157,7 +157,7 @@ function DelUser($name) {
     static $maRequete = "";
     
     // Initialisation de la requete sql
-    $sql = "DELETE FROM t_user WHERE name_user = ?";
+    $sql = "DELETE FROM utilisateur WHERE NomUtilisateur = ?";
     
     // Test en cas d'exeption
     try {
@@ -206,7 +206,7 @@ function CheckLogin($name, $password) {
     static $maRequete = "";
     
     // Initialisation de la requete sql
-    $sql = "Select * from t_user where name_user = ? AND password_user = ?";
+    $sql = "Select * from utilisateur where NomUtilisateur = ? AND mdpUtilisateur = ?";
 
     // Test en cas d'exeption
     try {
@@ -244,6 +244,61 @@ function CheckLogin($name, $password) {
 
     // Retourne un bool qui indique si le login est reussi
     return $logIsCorrect;
+}
+
+/**
+ * Fonction d'ajout d'un nouveau parcours 
+ * 
+ * @staticvar type $maRequete
+ * 
+ * @param type $NomParcours         Le nom du parcours
+ * @param type $LongueurParcours    La longueur du parcours
+ * @param type $DifficulteParcours  La difficulté du parcours
+ * @param type $idQuartier          Le quartier du parcours
+ * 
+ * @return boolean          Si l'ajout est un succès retourne VRAIE
+ *                          Sinon FAUX
+ */
+function AddCourse($NomParcours, $LongueurParcours,
+                   $DifficulteParcours, $idQuartier) {
+    // Initialisation d'une variable statiq pour la requete sql
+    static $maRequete = "";
+    
+    // Initialisation de la requete sql
+    $sql = "INSERT INTO parcours "
+            . "(NomParcours, LongueurParcours, DifficulteParcours, idQuartier) "
+            . "VALUES (?, ?, ?, ?)";
+    
+    // Test en cas d'exeption
+    try {
+        // Si la requete est bien null
+        if($maRequete == null){
+            // Connexion à la DB et préparation de la requete sql
+            $maRequete = ConnectDB()->prepare($sql);
+        }
+    } catch (Exception $e) {
+        // En cas d'erreur stop la fonction et retourne un message d'erreur
+        die("Une erreur est survenue lors de la préparation de la requete."
+                . $e->getMessage());
+    }
+    
+    // Initialisation d'une variable indique si l'ajout est reussi
+    $addIsSucess = true;
+
+    // Test pour les exeption
+    try {
+        // Execution de la requete sql avec les variables
+        // en parametre de la fonction
+        $maRequete->execute(array($NomParcours, $LongueurParcours,
+                                  $DifficulteParcours, $idQuartier));
+    } catch (Exception $e) {
+        // En cas d'exeption retourne false 
+        // pour indiquer que l'ajout est un echec
+        $addIsSucess = false;
+    }
+
+    // Retourne un bool qui indique si l'ajout est reussi
+    return $addIsSucess;
 }
 
 function getCourses($difficulte, $longueur, $idQuartier, $idCourse = false) {
