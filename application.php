@@ -125,7 +125,7 @@ function AddUser($name, $password) {
     }
     
     // Initialisation d'une variable indique si l'ajout est reussi
-    $addIsSucess = false;
+    $addIsSucess = true;
 
     // Test pour les exeption
     try {
@@ -140,6 +140,54 @@ function AddUser($name, $password) {
 
     // Retourne un bool qui indique si l'ajout est reussi
     return $addIsSucess;
+}
+
+/**
+ * Fonction de suppression d'un nouvel utilisateur 
+ * 
+ * @staticvar type $maRequete
+ * 
+ * @param type $name        Le pseudo de l'utilisateur à supprimer
+ * 
+ * @return boolean          Si la suppression est reussi retourne VRAIE
+ *                          Sinon FAUX
+ */
+function DelUser($name) {
+    // Initialisation d'une variable statiq pour la requete sql
+    static $maRequete = "";
+    
+    // Initialisation de la requete sql
+    $sql = "DELETE FROM t_user WHERE name_user = ?";
+    
+    // Test en cas d'exeption
+    try {
+        // Si la requete est bien null
+        if($maRequete == null){
+            // Connexion à la DB et préparation de la requete sql
+            $maRequete = ConnectDB()->prepare($sql);
+        }
+    } catch (Exception $e) {
+        // En cas d'erreur stop la fonction et retourne un message d'erreur
+        die("Une erreur est survenue lors de la préparation de la requete."
+                . $e->getMessage());
+    }
+    
+    // Initialisation d'une variable indique si la suppression est reussi
+    $delIsSucess = true;
+
+    // Test pour les exeption
+    try {
+        // Execution de la requete sql avec les variables
+        // en parametre de la fonction
+        $maRequete->execute(array($name));
+    } catch (Exception $e) {
+        // En cas d'exeption retourne false 
+        // pour indiquer que la suppression est un echec
+        $delIsSucess = false;
+    }
+
+    // Retourne un bool qui indique si la suppression est reussi
+    return $delIsSucess;
 }
 
 /**
