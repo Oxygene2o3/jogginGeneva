@@ -301,41 +301,56 @@ function AddCourse($NomParcours, $LongueurParcours,
     return $addIsSucess;
 }
 
-function getCourses($difficulte, $longueur, $idQuartier, $idCourse = false) {
-    if (!$idCourse) {
-        $table = [];
-        $myDB = connectDB();
-        $myRequest = $myDB->prepare("SELECT idParcours, NomParcours, LongueurParcours, DifficulteParcours, parcours.idQuartier, NomQuartier FROM parcours, quartier WHERE parcours.idQUartier = quartier.idQuartier AND ((DifficulteParcours = '$difficulte' OR '$difficulte' ='') AND (LongueurParcours <= '$longueur' OR '$longueur'= '') AND (parcours.idQuartier = '$idQuartier' OR '$idQuartier' = ''))");
-        $myRequest->execute();
-        while ($data = $myRequest->fetch(PDO::FETCH_ASSOC)) {
-            $table[] = $data;
-        }
-        return $table;
-    } else {
-        $table = [];
-        $myDB = connectDB();
-        $myRequest = $myDB->prepare("SELECT idParcours, NomParcours, LongueurParcours, DifficulteParcours, parcours.idQuartier, NomQuartier FROM parcours, quartier WHERE parcours.idQUartier = quartier.idQuartier AND idParcours = ?");
-        $myRequest->execute(array($idCourse));
-        $data = $myRequest->fetch(PDO::FETCH_ASSOC);
-        return $data;
-    }
-}
-
-function printQuartier(){
+// alex
+/**
+ * Récupère dans un tableau les informations de chaques parcours
+ * @param string $difficulte    La difficulté du parcour (Facile, Moyen, DIfficile)
+ * @param double $longueur      La longueur maximum que doit avoir le parcour
+ * @param int $idQuartier       Le quartier a afficher
+ * @return array                Tableau contenant les information sur chaque parcours
+ */
+function getCourses($difficulte, $longueur, $idQuartier) {
+    $table = [];
     $myDB = connectDB();
-        $myRequest = $myDB->prepare("SELECT idQuartier, NomQuartier FROM quartier"); 
-        $myRequest->execute();
-        echo '<option value=""></option>';
-        while ($data = $myRequest->fetch(PDO::FETCH_ASSOC)) {
-            echo '<option value="'.$data["idQuartier"].'">'.$data["NomQuartier"].'</option>';
-        }      
+    $myRequest = $myDB->prepare("SELECT idParcours, NomParcours, LongueurParcours, DifficulteParcours, parcours.idQuartier, NomQuartier FROM parcours, quartier WHERE parcours.idQUartier = quartier.idQuartier AND ((DifficulteParcours = '$difficulte' OR '$difficulte' ='') AND (LongueurParcours <= '$longueur' OR '$longueur'= '') AND (parcours.idQuartier = '$idQuartier' OR '$idQuartier' = ''))");
+    $myRequest->execute();
+    while ($data = $myRequest->fetch(PDO::FETCH_ASSOC)) {
+        $table[] = $data;
+    }
+    return $table;
 }
 
+/**
+ * Affiche un select de chaque quartiers
+ */
+function printQuartier() {
+    $myDB = connectDB();
+    $myRequest = $myDB->prepare("SELECT idQuartier, NomQuartier FROM quartier");
+    $myRequest->execute();
+    echo '<select name="filtreQuartier">';
+    echo '<option value=""></option>';
+    while ($data = $myRequest->fetch(PDO::FETCH_ASSOC)) {
+        echo '<option value="' . $data["idQuartier"] . '">' . $data["NomQuartier"] . '</option>';
+    }
+    echo '</select>';
+}
+
+/**
+ * Affiche les parcours en fonction du filtrage de la difficulté, de la pongueur et du quartier
+ * @param string $difficulte    La difficulté du parcour (Facile, Moyen, DIfficile)
+ * @param double $longueur      La longueur maximum que doit avoir le parcour
+ * @param int $idQuartier       Le quartier a afficher
+ */
 function showCourses($difficulte, $longueur, $idQuartier) {
-    $courses = getCourses($difficulte, $longueur, $idQuartier);  
-    if (empty($courses)){
+    
+    // récumère les informations sur les parcours
+    $courses = getCourses($difficulte, $longueur, $idQuartier);
+    // Affiche un message si sucun parcour ne correspond aux critaires
+    if (empty($courses)) {
         echo 'Aucun parcours ne correspond a vos critaires';
     }
+    
+    // Affichage web
     foreach ($courses as $value) {
         echo '<li class="list-group-item">';
         echo '<table class="listeParcours">';
@@ -348,6 +363,44 @@ function showCourses($difficulte, $longueur, $idQuartier) {
         echo '</table>';
         echo '</li>';
     }
+}
+
+/**
+ * Cette fonction permet d'afficher le nom des parcours que l'utilisateur a ajouté à ses favoris
+ * @param int $userId       l'id de l'utilisateur connecté
+ */
+function showFavoris($userId) {
+    // Connexion a la base de données
+    $myDB = connectDB();
+
+    // Requète pour récupérer les favoris de l'utilisateurs
+    $myRequest = $myDB->prepare("SELECT favoris.idParcours, favoris.idUtilisateur, parcours.NomParcours FROM parcours, favoris, utilisateur WHERE parcours.idParcours = favoris.idParcours AND favoris.idUtilisateur = utilisateur.idUtilisateur AND utilisateur.idUtilisateur = '$userId'");
+    $myRequest->execute();
+
+    // Affichage web
+    echo '<div class="panel panel-default">';
+    echo '<div class="panel-heading">Mes Favoris</div>';
+    while ($data = $myRequest->fetch(PDO::FETCH_ASSOC)) {
+        echo '<div class="panel-body">'
+                . '' . $data["NomParcours"] . ''
+                . '<a href="favoris.php?deleteParcoursId='.$data["idParcours"].'">Delete</a>'
+                . '</div>';
+    }
+    echo '</ul>';
+}
+
+/**
+ * Permet dêffacer un favoris
+ * @param int $idUtilisateur    L'id de l'utilisateur
+ * @param int $idParcours       L'id du parcours
+ */
+function deteleFav($idUtilisateur, $idParcours){
+    // Connexion a la base de données
+    $myDB = connectDB();
+
+    // Requète pour effacer un champ dans la table favoris
+    $myRequest = $myDB->prepare("DELETE FROM favoris WHERE idUtilisateur = ? AND idParcours = ?");
+    $myRequest->execute(array($idUtilisateur, $idParcours));
 }
 
 // Marlon
