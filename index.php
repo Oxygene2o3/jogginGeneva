@@ -50,7 +50,6 @@ $idQuartier = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreQuartier"] : '';
                         <span class="pull-right glyphicon glyphicon-triangle-top"></span>
                     </h3>
                 </div>
-
                 <!-- Contenue de la liste -->
                 <div class="panel-body">
                     <ul class="list-group">
@@ -69,15 +68,15 @@ $idQuartier = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreQuartier"] : '';
                                         <option value=Moyen>Moyen</option>
                                         <option value="Difficile">Difficile</option>
                                     </select>
-                                </div>
+                                </div>    
                                 <div class="btn-group" role="group">
                                     <select class="form-control" id="sel1" name="filtreQuartier">
-                                        <?php printQuartier() ?>
+                                        <?php //printQuartier() ?>
                                     </select>
-                                </div>
+                                </div>  
                             </div>
                         </form>
-                        <?php showCourses($difficulte, $longueur, $idQuartier) ?>
+                        <?php //showCourses($difficulte, $longueur, $idQuartier) ?>
                     </ul>
                 </div>
             </div>
@@ -104,9 +103,7 @@ $idQuartier = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreQuartier"] : '';
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
         <script src="./BootStrap/js/bootstrap.min.js"></script>
-        <script>
-                initialize();
-        </script>
+        <script>initialize();</script>
         <script>
             $(".panel-dropdown").find('.panel-heading').click(function () {
                 $(this).find('span').toggleClass('glyphicon-triangle-bottom glyphicon-triangle-top');
