@@ -1,31 +1,53 @@
 <?php
+// Ouverture de session
 session_start();
+// Lien à la librairie
 require_once 'application.php';
 
+// Initialisation 
+$error = "";
+
+
+// Traitement
+// Si l'utilisateur a envoyé le formulaire d'inscription
 if (isset($_REQUEST["modalForm"])) {
+    // Initialisation
     $NewName = filter_input(INPUT_POST, 'NewName', FILTER_SANITIZE_SPECIAL_CHARS);
     $NewPassword = filter_input(INPUT_POST, 'NewPassword', FILTER_SANITIZE_SPECIAL_CHARS);
     $NewPasswordConfirmed = filter_input(INPUT_POST, 'NewPasswordConfirmed', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    // Si les champs ne sont pas vides
     if ((!empty($NewName)) && (!empty($NewPassword)) && (!empty($NewPasswordConfirmed))) {
-        if ($NewPassword == $NewPasswordConfirmed)
-            $Verif = AddUser($NewName, $NewPassword);
+
+        // Si le mdp est le même que le mdp de la verification
+        if ($NewPassword == $NewPasswordConfirmed) {
+
+            // Si l'ajout de l'utilisateur est fonctionnel
+            if (AddUser($NewName, $NewPassword)) {
+                // N'affiche pas d'erreur
+            } else {
+                // Sinon affiche une erreur
+                $error = '<span id="helpBlock" class="help-block">this name is already assigned</span>';
+            }
+        }
     }
 }
 
+// Si le formulaire de connexion est envoyé
 if (isset($_REQUEST["btnSubmit"])) {
+    // Initialisation    
     $UserName = filter_input(INPUT_POST, 'UserName', FILTER_SANITIZE_SPECIAL_CHARS);
     $UserPassword = filter_input(INPUT_POST, 'UserPassword', FILTER_SANITIZE_SPECIAL_CHARS);
-    $data = CheckLogin($UserName, $UserPassword);
-    if ($data != false) {
-        $_SESSION['user_logged'] = $data;
-        header('Location: index.php');
-    }
-}
 
-if(empty($Verif)){
-    $error = '<span id="helpBlock" class="help-block">this name is already assigned</span>';  
-}else{
-    $error = "";
+    // Si le login est juste
+    if (CheckLogin($UserName, $UserPassword)) {
+        // Initialise une variable dans $_SESSION à true
+        $_SESSION['user_logged'] = true;
+        // Redirige vers l'index
+        header('Location: index.php');
+    } else {
+        $error = '<span id="helpBlock" class="help-block">The login as failed.</span>';
+    }
 }
 ?>
 <!DOCTYPE html>
