@@ -40,15 +40,23 @@ require_once 'application.php';
             </div>
             <div class="btn-group btn-group-justified" role="group">
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default" id="btnChoice">Détail</button>
+                    <button type="button" class="btn btn-default" id="btnChoice" onclick="changeContenueTexte('Detail')">Détail</button>
                 </div>
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default" id="btnChoice">Favori</button>
+                    <button type="button" class="btn btn-default" id="btnChoice" onclick="changeContenueTexte('Favoris')">Favoris</button>
                 </div>
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default" id="btnChoice">Modif</button>
+                    <button type="button" class="btn btn-default" id="btnChoice" onclick="changeContenueTexte('Modif')">Modif</button>
                 </div>
             </div>
+            
+            <!-- CONTENT -->
+            <div class="panel panel-primary">
+                <div class="panel-body" id="content">
+                    
+                </div>
+            </div>
+            
             <!-- FOOTER -->
             <footer>
                 <p class="pull-right"><a href="#">&#x23CF;</a></p>
@@ -60,6 +68,32 @@ require_once 'application.php';
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
         <script src="./BootStrap/js/bootstrap.min.js"></script>
+        <script>
+            function changeContenueTexte(Choice) {
+
+            //recupération du div
+            var div = document.getElementById("content");
+            var Contenu = "";
+            div.innerHTML = "";
+            switch (Choice) {
+                case "Detail":
+                    Contenu = Choice;
+                    div.innerHTML = Contenu;
+                    break;
+                case "Favoris":
+                    Contenu = '<?php showFavoris($_SESSION['user_logged']) ?>';
+                    div.innerHTML = Contenu;
+                    break;
+                case "Modif":
+                    Contenu = Choice;
+                    div.innerHTML = Contenu;
+                    break;
+                default:
+                    Contenu = "";
+                    div.innerHTML = Contenu;
+            }
+        }
+        </script>
     </script>
 </body>
 </html>

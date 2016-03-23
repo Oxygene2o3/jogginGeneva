@@ -56,7 +56,7 @@ function menu() {
                                       .  ' glyphicon-home"></span> Home',
             
                         "logout.php"  => '<span class="glyphicon '
-                                      . 'glyphicon-remove"></span> Logout',
+                                      . 'glyphicon-remove" id="red"></span> Logout',
             
                         "profil.php"  => '<span class="glyphicon'
                                       .  ' glyphicon-info-sign"></span> Profil'
@@ -368,12 +368,12 @@ function showCourses($difficulte, $longueur, $idQuartier) {
  * Cette fonction permet d'afficher le nom des parcours que l'utilisateur a ajouté à ses favoris
  * @param int $userId       l'id de l'utilisateur connecté
  */
-function showFavoris($userId) {
+function showFavoris($userName) {
     // Connexion a la base de données
     $myDB = connectDB();
 
     // Requète pour récupérer les favoris de l'utilisateurs
-    $myRequest = $myDB->prepare("SELECT favoris.idParcours, favoris.idUtilisateur, parcours.NomParcours FROM parcours, favoris, utilisateur WHERE parcours.idParcours = favoris.idParcours AND favoris.idUtilisateur = utilisateur.idUtilisateur AND utilisateur.idUtilisateur = '$userId'");
+    $myRequest = $myDB->prepare("SELECT favoris.idParcours, favoris.idUtilisateur, parcours.NomParcours FROM parcours, favoris, utilisateur WHERE parcours.idParcours = favoris.idParcours AND favoris.idUtilisateur = utilisateur.idUtilisateur AND utilisateur.NomUtilisateur = '$userName'");
     $myRequest->execute();
 
     // Affichage web
