@@ -55,11 +55,10 @@ function menu() {
         $menu = array(  "index.php"   => '<span class="glyphicon'
                                       .  ' glyphicon-home"></span> Home',
             
-                        "logout.php"  => '<span class="glyphicon '
-                                      . 'glyphicon-remove" id="red"></span> Logout',
-            
                         "profil.php"  => '<span class="glyphicon'
-                                      .  ' glyphicon-info-sign"></span> Profil'
+                                      .  ' glyphicon-info-sign"></span> Profil',
+                         "logout.php"  => '<span class="glyphicon '
+                                      . 'glyphicon-remove" id="red"></span> Logout'
         );
     }
     // La suite est du code pour du BOOTSTRAP
