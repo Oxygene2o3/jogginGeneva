@@ -225,7 +225,7 @@ function CheckLogin($name, $password) {
     try {
         // Execution de la requete sql avec les variables
         // en parametre de la fonction
-        $maRequete->execute(array($name, $password));
+        $maRequete->execute(array($name, sha1($password)));
         // Recuperation de l'entrée retournée
         $data = $maRequete->fetch(PDO::FETCH_ASSOC);
     } catch (Exception $e) {

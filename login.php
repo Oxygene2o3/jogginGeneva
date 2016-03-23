@@ -27,9 +27,15 @@ if (isset($_REQUEST["modalForm"])) {
                 // N'affiche pas d'erreur
             } else {
                 // Sinon affiche une erreur
-                $error = '<span id="helpBlock" class="help-block">this name is already assigned</span>';
+                $error = '<span id="helpBlock" class="help-block">This name is already assigned</span>';
             }
+        } else {
+            // Sinon affiche une erreur
+            $error = '<span id="helpBlock" class="help-block">The password are not the same.</span>';
         }
+    } else {
+        // Sinon affiche une erreur
+        $error = '<span id="helpBlock" class="help-block">Some field are empty.</span>';
     }
 }
 
