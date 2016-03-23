@@ -131,7 +131,7 @@ function AddUser($name, $password) {
     try {
         // Execution de la requete sql avec les variables
         // en parametre de la fonction
-        $maRequete->execute(array($name, $password));
+        $maRequete->execute(array($name, sha1($password)));
     } catch (Exception $e) {
         // En cas d'exeption retourne false 
         // pour indiquer que l'ajout est un echec
