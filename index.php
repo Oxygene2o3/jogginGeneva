@@ -85,13 +85,6 @@ $idQuartier = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreQuartier"] : '';
                 <p>Veuillez patienter pendant le chargement de la carte...</p>
             </div>
 
-            <!-- CONTENT INFORMATION -->
-            <div class="panel panel-info">
-                <div class="panel-body">
-                    <p>Information sur le parcour</p>
-                </div>
-            </div>
-
             <!-- FOOTER -->
             <footer>
                 <p class="pull-right"><a href="#">&#x23CF;</a></p>
