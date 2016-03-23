@@ -17,7 +17,7 @@ $idQuartier = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreQuartier"] : '';
         <link href="BootStrap/css/bootstrap.css" rel="stylesheet">
         <link href="./css/style.css" rel="stylesheet">
         <script
-            src="http://maps.googleapis.com/maps/api/js">
+            src="http://maps.googleapis.com/maps/api/js?key= AIzaSyB45lygduZiEszTK6nCOiUMnNkH4tTz70c">
         </script>
         <script
             src="./js/JavaScript.js">

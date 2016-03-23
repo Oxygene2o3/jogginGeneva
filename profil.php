@@ -46,7 +46,7 @@ require_once 'application.php';
                     <button type="button" class="btn btn-default" id="btnChoice">Favori</button>
                 </div>
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default" id="btnChoice">Modification</button>
+                    <button type="button" class="btn btn-default" id="btnChoice">Modif</button>
                 </div>
             </div>
             <!-- FOOTER -->
