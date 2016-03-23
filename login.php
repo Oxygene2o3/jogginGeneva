@@ -25,7 +25,7 @@ if (isset($_REQUEST["modalForm"])) {
             // Si l'ajout de l'utilisateur est fonctionnel
             if (AddUser($NewName, $NewPassword)) {
                 // Affiche un message comme quoi le compte a été crée
-                $error = '<span id="helpBlock" class="help-block">The account as been sucsesfuly created.</span>';
+                $error = '<span id="helpBlock" class="help-block">The account as been successfully created.</span>';
             } else {
                 // Sinon affiche une erreur
                 $error = '<span id="helpBlock" class="help-block">This name is already assigned</span>';
