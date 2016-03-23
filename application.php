@@ -16,8 +16,8 @@ function ConnectDB() {
         // Si la base de données est bien null
         if ($maDB == null) {
             // Connexion à la DB via PDO
-            $maDB = new PDO("mysql:host=localhost;dbname=db_maxyster;charset=utf8", 'maxyster', // username 
-                    'Super', // mdp 
+            $maDB = new PDO("mysql:host=localhost;dbname=joggingeneva;charset=utf8", 'root', // username 
+                    '', // mdp 
                     array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_EMULATE_PREPARES => false));
         }
