@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 16 Mars 2016 à 16:07
+-- Généré le :  Mer 23 Mars 2016 à 14:12
 -- Version du serveur :  5.6.15-log
 -- Version de PHP :  5.5.8
 
@@ -19,6 +19,30 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `joggingeneva`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `favoris`
+--
+
+CREATE TABLE IF NOT EXISTS `favoris` (
+  `idUtilisateur` int(11) NOT NULL,
+  `idParcours` int(11) NOT NULL,
+  KEY `idUtilisateur` (`idUtilisateur`,`idParcours`),
+  KEY `idParcours` (`idParcours`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `favoris`
+--
+
+INSERT INTO `favoris` (`idUtilisateur`, `idParcours`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5);
 
 -- --------------------------------------------------------
 
@@ -226,8 +250,9 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT,
   `NomUtilisateur` varchar(30) NOT NULL,
   `mdpUtilisateur` varchar(60) NOT NULL,
-  PRIMARY KEY (`idUtilisateur`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  PRIMARY KEY (`idUtilisateur`),
+  UNIQUE KEY `NomUtilisateur` (`NomUtilisateur`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `utilisateur`
@@ -240,6 +265,13 @@ INSERT INTO `utilisateur` (`idUtilisateur`, `NomUtilisateur`, `mdpUtilisateur`) 
 --
 -- Contraintes pour les tables exportées
 --
+
+--
+-- Contraintes pour la table `favoris`
+--
+ALTER TABLE `favoris`
+  ADD CONSTRAINT `favoris_ibfk_2` FOREIGN KEY (`idParcours`) REFERENCES `parcours` (`idParcours`),
+  ADD CONSTRAINT `favoris_ibfk_1` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`idUtilisateur`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `parcours`
