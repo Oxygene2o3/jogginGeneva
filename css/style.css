@@ -117,5 +117,11 @@
     float: left;
 }
 
-
+.btn-group-justified {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
+  margin-bottom: 10px;
+}
 

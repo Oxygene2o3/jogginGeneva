@@ -38,7 +38,7 @@ $idQuartier = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreQuartier"] : '';
         <div class="container marketing">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    <p>texte de présentation</p>
+                    <p>texte</p>
                 </div>
             </div>
 
@@ -55,21 +55,27 @@ $idQuartier = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreQuartier"] : '';
                 <div class="panel-body">
                     <ul class="list-group">
                         <form action="" method="post">
-                            <table class="listeParcours">
-                                <tr>                                
-                                    <td><input type="submit" name="filtre" value="Filtrer" /></td>
-                                    <td>Logueur max : <input type="text" name="filtreLongueur"></td>
-                                    <td>Difficulté : 
-                                        <select name="filtreDifficulte">
-                                            <option value=""></option>
-                                            <option value="Facile">Facile</option>
-                                            <option value="Moyen">Moyen</option>
-                                            <option value="Difficile">Difficile</option>
-                                        </select></td>
-                                    <td>Quartier : <?php printQuartier() ?></td>  
-                                </tr> 
-                                <tr><td><p></p></td></tr>
-                            </table>
+                            <div class="btn-group btn-group-justified" role="group">
+                                <div class="btn-group" role="group">
+                                    <button type="submit" class="btn btn-default" name="filtre">Filtrer</button>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Longueur Max" name="filtreLongueur">
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <select class="form-control" id="sel1" name="filtreDifficulte" >
+                                        <option value=""></option>
+                                        <option value="Facile">Facile</option>
+                                        <option value=Moyen>Moyen</option>
+                                        <option value="Difficile">Difficile</option>
+                                    </select>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <select class="form-control" id="sel1" name="filtreQuartier">
+                                        <?php printQuartier() ?>
+                                    </select>
+                                </div>
+                            </div>
                         </form>
                         <?php showCourses($difficulte, $longueur, $idQuartier) ?>
                     </ul>
