@@ -411,7 +411,7 @@ function like($trip, $user) {
 function myAccount($username) {
     $db = ConnectDB();
     $sql = 'SELECT * FROM utilisateur WHERE NomUtilisateur = :username';
-    $requete = $bdd->prepare($sql);
+    $requete = $db->prepare($sql);
     $requete->execute(array());
 
     echo '<li class="list-group-item">';
