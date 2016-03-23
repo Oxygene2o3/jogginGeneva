@@ -396,6 +396,25 @@ function myAccount($username) {
 
 }
 
-function updateAccountInfo($user) {
+/**
+ *
+ * Permet à un utilisateur d'ajouter un parcours à ses favoris.
+ *
+ * @param   int     $idUtilisateur      ID de l'utilisateur.
+ * @param   int     $idParcours         ID du parcours.
+ */
+function favorite($idUtilisateur, $idParcours){
+    
+    // Connexion bade de données
+    $db = Connexiondb();
+    
+    // Ajouter le l'id du parcours et l'id de l'utlisateur dans la table "favoris"
+    $sqlAdd = ("INSERT INTO favoris (idUtilisateur,idParcours) VALUES (?,?);");
+    
+    // Nous faisons la prération
+    $add = $db->prepare($sqlAdd);
+    
+    // Nous exécutons
+    $add->execute(array($idUtilisateur,$idParcours));        
     
 }
