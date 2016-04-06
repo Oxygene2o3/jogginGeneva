@@ -28,7 +28,7 @@ if (isset($_GET['idParcours'])) {
         </script>
         <title>JogginGeneva</title>
     </head>
-    <body>
+    <body onresize="test()">
         <!-- MENU -->
         <div class="navbar-wrapper">
             <div class="container">
@@ -83,6 +83,9 @@ if (isset($_GET['idParcours'])) {
                             </div>
                         </form>
                         <?php showCourses($difficulte, $longueur, $idQuartier) ?>
+                        <div id="fleche">
+                            
+                        </div>
                     </ul>
                 </div>
             </div>
@@ -114,7 +117,14 @@ if (isset($_GET['idParcours'])) {
                 $(this).parent(".panel").find(".panel-body").first().slideToggle();
             });
 
-
+             function test(){
+                 var tempo = window.innerWidth;
+                 
+                 if(tempo <= 545)
+                 {
+                     alert("OK");
+                 }
+             }
         </script>
     </body>
 </html>
