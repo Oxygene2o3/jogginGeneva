@@ -385,7 +385,7 @@ function showCourses($difficulte, $longueur, $idQuartier) {
     $courses = getCourses($difficulte, $longueur, $idQuartier);
     // Affiche un message si sucun parcour ne correspond aux critaires
     if (empty($courses)) {
-        echo 'Aucun parcours ne correspond a vos critaires';
+        echo 'Aucun parcours ne correspond à vos critères';
     }
     
     // Affichage web
