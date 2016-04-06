@@ -353,7 +353,7 @@ function showCourses($difficulte, $longueur, $idQuartier) {
         echo '<li class="list-group-item">';
         echo '<table class="listeParcours">';
         echo '<tr>';
-        echo '<td>' . $value["NomParcours"] . '</td>';
+        echo '<td><a href="index.php?idParcours='.$value["idParcours"].'">' . $value["NomParcours"] . '</a></td>';
         echo '<td>' . number_format($value["LongueurParcours"], 1, ',', ' ') . ' </td>';
         echo '<td>' . $value["DifficulteParcours"] . '</td>';
         echo '<td>' . $value["NomQuartier"] . '</td>';
