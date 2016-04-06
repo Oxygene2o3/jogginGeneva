@@ -498,3 +498,194 @@ function updateUser($idUtilisateur, $nomUtilisateur, $mdpUtilisateur){
     $update->execute();        
     
 }
+
+function verifieUser($nom, $motDePasse) {
+
+    if ($nom == "Admin" && $motDePasse == "reseau") {
+        $_SESSION["isConnected"] = true;
+        session_start();
+    } else {
+        $_SESSION["isConnected"] = false;
+    }
+}
+
+function IsConnected() {
+    return isset($_SESSION["isConnected"]) ? $_SESSION["isConnected"] : false;
+}
+
+function Connexiondb() {
+    $serveur = '127.0.0.1';
+    $pseudo = 'root';
+    $pwd = '';
+    $db = 'joggingenevav2';
+    $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+    $pdo_options = array();
+    try {
+        $bdd = new PDO("mysql:host=$serveur;dbname=$db", $pseudo, $pwd, $pdo_options);
+        $bdd->exec('SET CHARACTER SET utf8');
+    } catch (Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+    return $bdd;
+}
+
+function Deconnexion() {
+    session_destroy();
+    header('Location: index.php');
+}
+
+function AfficherParcours($difficulte, $longueur, $idQuartier) {
+    $bdd = Connexiondb();
+    $sql = "SELECT idParcours, nomParcours, longueurParcours, difficulteParcours, nomQuartier FROM parcours, quartier
+            where quartier.idQuartier = parcours.idQuartier
+            AND ((DifficulteParcours = '$difficulte' OR '$difficulte' ='') AND (LongueurParcours <= '$longueur' OR '$longueur'= '') AND (parcours.idQuartier = '$idQuartier' OR '$idQuartier' = ''))";
+    $requete = $bdd->prepare($sql);
+    $requete->execute();
+    return $requete->fetchALL();
+}
+
+function AfficherParcoursSelectionne($idParcoursSelectionne) {
+    $bdd = Connexiondb();
+    lirePointsParcours($idParcoursSelectionne);
+    CountEtape($idParcoursSelectionne);
+    GetLatitude($idParcoursSelectionne);
+    GetLongitude($idParcoursSelectionne);
+}
+
+function lirePointsParcours($idParcoursSelectionne) {
+    $bdd = Connexiondb();
+    $sql = 'SELECT * FROM pointsparcours WHERE idParcours = :idParcoursSelectionne';
+    $requete = $bdd->prepare($sql);
+    $requete->execute(array('idParcoursSelectionne' => $idParcoursSelectionne));
+    return $requete->fetchALL();
+}
+
+function CountEtape($idParcoursSelectionne) {
+    $bdd = Connexiondb();
+    $sql = 'SELECT COUNT(NumeroEtape) FROM pointsparcours WHERE idParcours = :idParcoursSelectionne';
+    $requete = $bdd->prepare($sql);
+    $requete->execute(array('idParcoursSelectionne' => $idParcoursSelectionne));
+    return $requete->fetchAll();
+}
+
+function GetLatitude($idParcoursSelectionne) {
+    $bdd = Connexiondb();
+    $sql = 'SELECT Latitude FROM pointsparcours WHERE idParcours = :idParcoursSelectionne';
+    $requete = $bdd->prepare($sql);
+    $requete->execute(array('idParcoursSelectionne' => $idParcoursSelectionne));
+    return $requete->fetchAll();
+}
+
+function GetLongitude($idParcoursSelectionne) {
+    $bdd = Connexiondb();
+    $sql = 'SELECT Longitude FROM pointsparcours WHERE idParcours = :idParcoursSelectionne';
+    $requete = $bdd->prepare($sql);
+    $requete->execute(array('idParcoursSelectionne' => $idParcoursSelectionne));
+    return $requete->fetchAll();
+}
+
+function CountPointParcours($idParcours) {
+    $bdd = Connexiondb();
+    $sql = 'SELECT COUNT(*) FROM `pointsparcours` WHERE `idParcours` = :id';
+    $requete = $bdd->prepare($sql);
+    $requete->execute(array(
+        'id' => $idParcours
+    ));
+    return $requete->fetch()[0];
+}
+function SupprimerParcours($idParcours) {
+    $bdd = Connexiondb();
+    $sql = 'DELETE FROM parcours WHERE idParcours = :idParcours';
+    $requete = $bdd->prepare($sql);
+    $requete->execute(array(
+        'idParcours' => $idParcours,
+    ));
+}
+
+function LectureParcours() {
+    if (isset($_REQUEST['id'])) {
+        $id = $_REQUEST['id'];
+        if ($id != "") {
+            $_SESSION['idParcours'] = $id;
+            $parcoursChoisi = $_SESSION['idParcours'];
+            lirePointsParcours($parcoursChoisi);
+            $NombreEtape = CountEtape($parcoursChoisi);
+            $Latitude = GetLatitude($parcoursChoisi);
+            $Longitude = GetLongitude($parcoursChoisi);
+
+            for ($i = 1; $i <= $NombreEtape[0][0]; $i++) {
+                echo "<input id=\"e$i\" type=\"hidden\" value=\"$i\"></input>";
+                echo "<input id=\"lat$i\" type=\"hidden\" value=" . $Latitude[$i - 1][0] . "></input>";
+                echo "<input id=\"lon$i\" type=\"hidden\" value=" . $Longitude[$i - 1][0] . "></input>";
+            }
+            $nbPoint = CountPointParcours($parcoursChoisi);
+            echo "<script>initMapParcours($nbPoint);</script>";
+        }
+    }
+}
+
+function Options() {
+    echo<<<ECHO
+  <input type="submit" name="Deconnexion" value="Déconnexion">
+  <h4>Vous disposez des options suivantes en tant qu\'administrateur</h4>
+  <table border = "1">
+  <tr>
+  <td><h5>Créer un parcours</h5></td>
+  <td><a href="ajouter.php"><img src="img/add.png" width="40" height="40" alt="creer"/></a></td>
+  </tr>
+  </table>
+ECHO;
+}
+
+function EditerParcoursSelectionne($idParcours, $NomParcours, $LongueurParcours, $DifficulteParcours, $idQuartier) {
+    $bdd = Connexiondb();
+    $sql = "UPDATE parcours SET NomParcours=:NomParcours,LongueurParcours=:LongueurParcours,DifficulteParcours=:DifficulteParcours,idQuartier=:idQuartier WHERE idParcours=:idParcours";
+    $requete = $bdd->prepare($sql);
+    $requete->execute(array('idParcours' => $idParcours, 'NomParcours' => $NomParcours, 'LongueurParcours' => $LongueurParcours, 'DifficulteParcours' => $DifficulteParcours, 'idQuartier' => $idQuartier));
+}
+
+function EditerPointsParcoursSelectionne($idPointsParcours, $idParcours, $Latitude, $Longitude, $NumeroEtape) {
+    $bdd = Connexiondb();
+    $sql = "UPDATE pointsparcours SET Latitude=:Latitude,Longitude=:Longitude,NumeroEtape=:NumeroEtape WHERE idParcours=:idParcours AND idPointsParcours=:idPointsParcours";
+    $requete = $bdd->prepare($sql);
+    $requete->execute(array('idParcours' => $idParcours, 'Latitude' => $Latitude, 'Longitude' => $Longitude, 'NumeroEtape' => $NumeroEtape, 'idPointsParcours' => $idPointsParcours));
+}
+
+function AjouterParcours($nom, $longueur, $difficulte, $idQuartier) {
+    $bdd = Connexiondb();
+    $sql = 'INSERT INTO `parcours`(`NomParcours`, `LongueurParcours`, `DifficulteParcours`, `idQuartier`) VALUES (:nom,:longueur, :difficulte, :idQuartier)';
+    $requete = $bdd->prepare($sql);
+    $requete->execute(array(
+        'nom' => $nom,
+        'longueur' => $longueur,
+        'difficulte' => $difficulte,
+        'idQuartier' => $idQuartier
+    ));
+}
+
+function AjouterPointsParcours($Latitude, $Longitude, $NumeroEtape) {
+    $bdd = Connexiondb();
+    $sql = 'INSERT INTO `pointsParcours`(`Latitude`, `Longitude`, `NumeroEtape`, `idParcours`) VALUES ( :Latitude, :Longitude, :NumeroEtape,(SELECT idParcours FROM `parcours` ORDER BY idParcours DESC LIMIT 1))';
+    $requete = $bdd->prepare($sql);
+    $requete->execute(array(
+        'Latitude' => $Latitude,
+        'Longitude' => $Longitude,
+        'NumeroEtape' => $NumeroEtape
+    ));
+}
+
+function LireParcoursEdit($idParcours) {
+    $bdd = Connexiondb();
+    $sql = 'SELECT * FROM parcours WHERE idParcours = :idParcours';
+    $requete = $bdd->prepare($sql);
+    $requete->execute(array('idParcours' => $idParcours));
+    return $requete->fetchAll();
+}
+
+function AfficherQuartier() {
+    $bdd = Connexiondb();
+    $sql = 'SELECT idQuartier,NomQuartier FROM quartier';
+    $requete = $bdd->prepare($sql);
+    $requete->execute();
+    return $requete->fetchAll();
+}

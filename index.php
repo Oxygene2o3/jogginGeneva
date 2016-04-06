@@ -42,7 +42,7 @@ $idQuartier = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreQuartier"] : '';
 					<br>
 					<p>Si JogginGeneva vous plait, nous vous proposons alors de vous créer un compte <b><a href="login.php">ici</a></b>. Grâce à ce compte vous aurez la possibilité d'ajouter les parcours qui vous plaisent dans votre liste de favoris.</p>
 					<br>
-					<h3>Bonne Jogging !!</h3>
+					<h3>Bon Jogging !!</h3>
 				</div>
             </div>
 
