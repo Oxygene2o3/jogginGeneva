@@ -38,8 +38,10 @@ $idQuartier = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreQuartier"] : '';
         <div class="container marketing">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    <p>texte</p>
-                </div>
+                    <p>Bienvenue dans JogginGeneva ! Vous voulez faire votre jogging, mais les parcours précédents ne vous ont pas satisfait ? Ne vous inquitez pas ! Dans JogginGeneva vous avez la possibilité de consulter notre liste des parcours qui peuvent être fitlrés par difficulté, cartier ou bien la distance totale !</p>
+					<p>Si JogginGeneva vous plait, nous vous proposons alors de vous créer un compte. Grâce à ce compte vous aurez la possibilité d'ajouter les parcours qui vous plaisent dans votre liste de favoris.</p>
+					<p>Bonne Jogging !!</p>
+				</div>
             </div>
 
             <!-- Liste parcours -->
@@ -88,7 +90,7 @@ $idQuartier = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreQuartier"] : '';
             <!-- FOOTER -->
             <footer>
                 <p class="pull-right"><a href="#">&#x23CF;</a></p>
-                <p>&copy;</p>
+                <p>Marlon P.R. & Fabio D.B. & Alex A. & Damiano R. &copy;</p>
             </footer>
         </div>
 
