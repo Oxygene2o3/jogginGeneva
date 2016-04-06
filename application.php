@@ -521,7 +521,7 @@ function favorite($idUtilisateur, $idParcours){
 function updateUser($idUtilisateur, $nomUtilisateur, $mdpUtilisateur){
     
     
-    $db = Connexiondb();
+    $db = ConnectDB();
     
     
     $sqlUpdate = ("UPDATE utilisateur SET NomUilisateur=:nomUtilisateur, mdpUtilisateur=:mdpUtilisateur WHERE idUtilisateur=:idUtilisateur;");
@@ -553,7 +553,7 @@ function IsConnected() {
     return isset($_SESSION["isConnected"]) ? $_SESSION["isConnected"] : false;
 }
 
-//function Connexiondb() {
+//function ConnectDB() {
 //    $serveur = '127.0.0.1';
 //    $pseudo = 'root';
 //    $pwd = '';
@@ -575,7 +575,7 @@ function Deconnexion() {
 }
 
 function AfficherParcours($difficulte, $longueur, $idQuartier) {
-    $bdd = Connexiondb();
+    $bdd = ConnectDB();
     $sql = "SELECT idParcours, nomParcours, longueurParcours, difficulteParcours, nomQuartier FROM parcours, quartier
             where quartier.idQuartier = parcours.idQuartier
             AND ((DifficulteParcours = '$difficulte' OR '$difficulte' ='') AND (LongueurParcours <= '$longueur' OR '$longueur'= '') AND (parcours.idQuartier = '$idQuartier' OR '$idQuartier' = ''))";
@@ -585,7 +585,7 @@ function AfficherParcours($difficulte, $longueur, $idQuartier) {
 }
 
 function AfficherParcoursSelectionne($idParcoursSelectionne) {
-    $bdd = Connexiondb();
+    $bdd = ConnectDB();
     lirePointsParcours($idParcoursSelectionne);
     CountEtape($idParcoursSelectionne);
     GetLatitude($idParcoursSelectionne);
@@ -593,7 +593,7 @@ function AfficherParcoursSelectionne($idParcoursSelectionne) {
 }
 
 function lirePointsParcours($idParcoursSelectionne) {
-    $bdd = Connexiondb();
+    $bdd = ConnectDB();
     $sql = 'SELECT * FROM pointsparcours WHERE idParcours = :idParcoursSelectionne';
     $requete = $bdd->prepare($sql);
     $requete->execute(array('idParcoursSelectionne' => $idParcoursSelectionne));
@@ -601,7 +601,7 @@ function lirePointsParcours($idParcoursSelectionne) {
 }
 
 function CountEtape($idParcoursSelectionne) {
-    $bdd = Connexiondb();
+    $bdd = ConnectDB();
     $sql = 'SELECT COUNT(NumeroEtape) FROM pointsparcours WHERE idParcours = :idParcoursSelectionne';
     $requete = $bdd->prepare($sql);
     $requete->execute(array('idParcoursSelectionne' => $idParcoursSelectionne));
@@ -609,7 +609,7 @@ function CountEtape($idParcoursSelectionne) {
 }
 
 function GetLatitude($idParcoursSelectionne) {
-    $bdd = Connexiondb();
+    $bdd = ConnectDB();
     $sql = 'SELECT Latitude FROM pointsparcours WHERE idParcours = :idParcoursSelectionne';
     $requete = $bdd->prepare($sql);
     $requete->execute(array('idParcoursSelectionne' => $idParcoursSelectionne));
@@ -617,7 +617,7 @@ function GetLatitude($idParcoursSelectionne) {
 }
 
 function GetLongitude($idParcoursSelectionne) {
-    $bdd = Connexiondb();
+    $bdd = ConnectDB();
     $sql = 'SELECT Longitude FROM pointsparcours WHERE idParcours = :idParcoursSelectionne';
     $requete = $bdd->prepare($sql);
     $requete->execute(array('idParcoursSelectionne' => $idParcoursSelectionne));
@@ -625,7 +625,7 @@ function GetLongitude($idParcoursSelectionne) {
 }
 
 function CountPointParcours($idParcours) {
-    $bdd = Connexiondb();
+    $bdd = ConnectDB();
     $sql = 'SELECT COUNT(*) FROM `pointsparcours` WHERE `idParcours` = :id';
     $requete = $bdd->prepare($sql);
     $requete->execute(array(
@@ -634,7 +634,7 @@ function CountPointParcours($idParcours) {
     return $requete->fetch()[0];
 }
 function SupprimerParcours($idParcours) {
-    $bdd = Connexiondb();
+    $bdd = ConnectDB();
     $sql = 'DELETE FROM parcours WHERE idParcours = :idParcours';
     $requete = $bdd->prepare($sql);
     $requete->execute(array(
@@ -678,21 +678,21 @@ ECHO;
 }
 
 function EditerParcoursSelectionne($idParcours, $NomParcours, $LongueurParcours, $DifficulteParcours, $idQuartier) {
-    $bdd = Connexiondb();
+    $bdd = ConnectDB();
     $sql = "UPDATE parcours SET NomParcours=:NomParcours,LongueurParcours=:LongueurParcours,DifficulteParcours=:DifficulteParcours,idQuartier=:idQuartier WHERE idParcours=:idParcours";
     $requete = $bdd->prepare($sql);
     $requete->execute(array('idParcours' => $idParcours, 'NomParcours' => $NomParcours, 'LongueurParcours' => $LongueurParcours, 'DifficulteParcours' => $DifficulteParcours, 'idQuartier' => $idQuartier));
 }
 
 function EditerPointsParcoursSelectionne($idPointsParcours, $idParcours, $Latitude, $Longitude, $NumeroEtape) {
-    $bdd = Connexiondb();
+    $bdd = ConnectDB();
     $sql = "UPDATE pointsparcours SET Latitude=:Latitude,Longitude=:Longitude,NumeroEtape=:NumeroEtape WHERE idParcours=:idParcours AND idPointsParcours=:idPointsParcours";
     $requete = $bdd->prepare($sql);
     $requete->execute(array('idParcours' => $idParcours, 'Latitude' => $Latitude, 'Longitude' => $Longitude, 'NumeroEtape' => $NumeroEtape, 'idPointsParcours' => $idPointsParcours));
 }
 
 function AjouterParcours($nom, $longueur, $difficulte, $idQuartier) {
-    $bdd = Connexiondb();
+    $bdd = ConnectDB();
     $sql = 'INSERT INTO `parcours`(`NomParcours`, `LongueurParcours`, `DifficulteParcours`, `idQuartier`) VALUES (:nom,:longueur, :difficulte, :idQuartier)';
     $requete = $bdd->prepare($sql);
     $requete->execute(array(
@@ -704,7 +704,7 @@ function AjouterParcours($nom, $longueur, $difficulte, $idQuartier) {
 }
 
 function AjouterPointsParcours($Latitude, $Longitude, $NumeroEtape) {
-    $bdd = Connexiondb();
+    $bdd = ConnectDB();
     $sql = 'INSERT INTO `pointsParcours`(`Latitude`, `Longitude`, `NumeroEtape`, `idParcours`) VALUES ( :Latitude, :Longitude, :NumeroEtape,(SELECT idParcours FROM `parcours` ORDER BY idParcours DESC LIMIT 1))';
     $requete = $bdd->prepare($sql);
     $requete->execute(array(
@@ -715,7 +715,7 @@ function AjouterPointsParcours($Latitude, $Longitude, $NumeroEtape) {
 }
 
 function LireParcoursEdit($idParcours) {
-    $bdd = Connexiondb();
+    $bdd = ConnectDB();
     $sql = 'SELECT * FROM parcours WHERE idParcours = :idParcours';
     $requete = $bdd->prepare($sql);
     $requete->execute(array('idParcours' => $idParcours));
@@ -723,7 +723,7 @@ function LireParcoursEdit($idParcours) {
 }
 
 function AfficherQuartier() {
-    $bdd = Connexiondb();
+    $bdd = ConnectDB();
     $sql = 'SELECT idQuartier,NomQuartier FROM quartier';
     $requete = $bdd->prepare($sql);
     $requete->execute();
