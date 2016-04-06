@@ -553,21 +553,21 @@ function IsConnected() {
     return isset($_SESSION["isConnected"]) ? $_SESSION["isConnected"] : false;
 }
 
-function Connexiondb() {
-    $serveur = '127.0.0.1';
-    $pseudo = 'root';
-    $pwd = '';
-    $db = 'joggingenevav2';
-    $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-    $pdo_options = array();
-    try {
-        $bdd = new PDO("mysql:host=$serveur;dbname=$db", $pseudo, $pwd, $pdo_options);
-        $bdd->exec('SET CHARACTER SET utf8');
-    } catch (Exception $e) {
-        die('Erreur : ' . $e->getMessage());
-    }
-    return $bdd;
-}
+//function Connexiondb() {
+//    $serveur = '127.0.0.1';
+//    $pseudo = 'root';
+//    $pwd = '';
+//    $db = 'joggingenevav2';
+//    $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+//    $pdo_options = array();
+//    try {
+//        $bdd = new PDO("mysql:host=$serveur;dbname=$db", $pseudo, $pwd, $pdo_options);
+//        $bdd->exec('SET CHARACTER SET utf8');
+//    } catch (Exception $e) {
+//        die('Erreur : ' . $e->getMessage());
+//    }
+//    return $bdd;
+//}
 
 function Deconnexion() {
     session_destroy();
