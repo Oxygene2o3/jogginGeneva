@@ -133,9 +133,15 @@
     float: left;
 }
 
-
 #divIco{
     float: right;
+}
+
+.btn-info {
+  color: #fff;
+  background-color: #337AB7;
+  border-color: #F1F1F1;
+  font-size: 20px;
 }
 
 

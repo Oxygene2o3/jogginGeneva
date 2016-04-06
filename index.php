@@ -43,11 +43,11 @@ if (isset($_GET['idParcours'])) {
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <p>Bienvenue dans JogginGeneva ! Vous voulez faire votre jogging, mais les parcours précédents ne vous ont pas satisfait ? Ne vous inquitez pas ! Dans JogginGeneva vous avez la possibilité de consulter notre liste des parcours qui peuvent être fitlrés par difficulté, cartier ou bien la distance totale !</p>
-					<br>
-					<p>Si JogginGeneva vous plait, nous vous proposons alors de vous créer un compte <b><a href="login.php">ici</a></b>. Grâce à ce compte vous aurez la possibilité d'ajouter les parcours qui vous plaisent dans votre liste de favoris.</p>
-					<br>
-					<h3>Bon Jogging !!</h3>
-				</div>
+                    <br>
+                    <p>Si JogginGeneva vous plait, nous vous proposons alors de vous créer un compte <b><a href="login.php">ici</a></b>. Grâce à ce compte vous aurez la possibilité d'ajouter les parcours qui vous plaisent dans votre liste de favoris.</p>
+                    <br>
+                    <h3>Bon Jogging !!</h3>
+                </div>
             </div>
 
             <!-- Liste parcours -->
@@ -62,10 +62,7 @@ if (isset($_GET['idParcours'])) {
                 <div class="panel-body">
                     <ul class="list-group">
                         <form action="" method="post">
-                            <div class="btn-group btn-group-justified" role="group">
-                                <div class="btn-group" role="group">
-                                    <button type="submit" class="btn btn-default" name="filtre">Filtrer</button>
-                                </div>
+                            <div class="btn-group btn-group-justified" role="group">                             
                                 <div class="btn-group" role="group">
                                     <input type="text" class="form-control" id="exampleInputName2" placeholder="Longueur Max" name="filtreLongueur">
                                 </div>
@@ -81,7 +78,12 @@ if (isset($_GET['idParcours'])) {
                                     <select class="form-control" id="sel1" name="filtreQuartier">
                                         <?php printQuartier() ?>
                                     </select>
-                                </div>  
+                                </div>    
+                            </div>
+                            <div class="btn-group btn-group-justified" role="group">
+                                <div class="btn-group" role="group">
+                                    <button type="submit" class="btn btn-info" name="filtre">Filtrer</button>
+                                </div>
                             </div>
                         </form>
                         <?php showCourses($difficulte, $longueur, $idQuartier) ?>
@@ -96,7 +98,7 @@ if (isset($_GET['idParcours'])) {
             <!-- FOOTER -->
             <footer>
                 <p class="pull-right"><a href="#">&#x23CF;</a></p>
-                <p>Marlon P.R. & Fabio D.B. & Alex A. & Damiano R. &copy;</p>
+                <p>&copy; Marlon P.R. & Fabio D.B. & Alex A. & Damiano R. </p>
             </footer>
         </div>
 
@@ -106,15 +108,17 @@ if (isset($_GET['idParcours'])) {
         <script src="./BootStrap/js/bootstrap.min.js"></script>
         <script>initialize();</script>
         <script>
-            $(".panel-dropdown").find('.panel-heading').click(function () {
-                $(this).find('span').toggleClass('glyphicon-triangle-bottom glyphicon-triangle-top');
-                $(this).parent(".panel").find(".panel-body").first().slideToggle();
-            });
 
             $(".panel-dropdown").find('.panel-heading').click();
             $('<span>', {
                 class: "pull-right glyphicon glyphicon-triangle-bottom"
             }).appendTo($(".panel-dropdown").find('.panel-heading').find('h4'));
+            $(".panel-dropdown").find('.panel-heading').click(function () {
+                $(this).find('span').toggleClass('glyphicon-triangle-bottom glyphicon-triangle-top');
+                $(this).parent(".panel").find(".panel-body").first().slideToggle();
+            });
+
+
         </script>
     </body>
 </html>
