@@ -62,7 +62,7 @@ if (isset($_GET['idParcours'])) {
                 <div class="panel-body">
                     <ul class="list-group">
                         <form action="" method="post">
-                            <div class="btn-group btn-group-justified" role="group">                             
+                            <div class="btn-group btn-group-justified" role="group">    
                                 <div class="btn-group" role="group">
                                     <input type="text" class="form-control" id="exampleInputName2" placeholder="Longueur Max" name="filtreLongueur">
                                 </div>
