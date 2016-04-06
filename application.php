@@ -741,3 +741,21 @@ function AfficherQuartier() {
     $requete->execute();
     return $requete->fetchAll();
 }
+
+
+function ListePoints($idParcoursSelectionne){
+    $rlt = "";
+    
+    $lat = GetLatitude($idParcoursSelectionne);
+    $lon = GetLongitude($idParcoursSelectionne);
+    
+    for($i = 0; $i < count($lat); $i++)
+    {
+        $rlt .= "[" + $lat[$i] + "," + $lon[$i] + "]";
+        if($i < count($lat)){
+            $rlt .= ",";
+        }
+    }
+    
+    return $rlt;
+}

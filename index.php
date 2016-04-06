@@ -129,6 +129,23 @@ if (isset($_GET['idParcours'])) {
                      alert("OK");
                  }
              }
+            // DAMIANO & MARLON
+            <?php if(isset($_REQUEST['idParcours'])){?>
+                var liste_des_points=[
+                    <?php echo ListePoints($_REQUEST['idParcours']); ?>
+                ];
+
+                var i=0,li=liste_des_points.length;
+                while(i<li){
+                  new google.maps.Marker({
+                          position: new google.maps.LatLng(liste_des_points[i][0], liste_des_points[i][1]),
+                          map: map,
+                          title: "Marqueur-"+i
+                     });
+                  i++;
+                } 
+            <?php }?>
+
         </script>
     </body>
 </html>
