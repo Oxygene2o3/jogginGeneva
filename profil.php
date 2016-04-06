@@ -1,6 +1,9 @@
 <?php
 session_start();
 require_once 'application.php';
+if (isset($_REQUEST["parcoursId"])){
+    deleteFav($_SESSION["user"]["idUtilisateur"], $_REQUEST["parcoursId"]);
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -53,7 +56,6 @@ require_once 'application.php';
             <!-- CONTENT -->
             <div class="panel panel-primary">
                 <div class="panel-body" id="content">
-                    
                 </div>
             </div>
             

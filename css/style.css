@@ -129,3 +129,13 @@
     color: red;
 }
 
+#divName{
+    float: left;
+}
+
+
+#divIco{
+    float: right;
+}
+
+

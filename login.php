@@ -50,6 +50,7 @@ if (isset($_REQUEST["btnSubmit"])) {
     if (CheckLogin($UserName, $UserPassword)) {
         // Initialise une variable dans $_SESSION à true
         $_SESSION['user_logged'] = $UserName;
+        $_SESSION["user"] = getUserByName($UserName);
         // Redirige vers l'index
         header('Location: index.php');
     } else {

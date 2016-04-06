@@ -71,7 +71,7 @@ if (isset($_GET['idParcours'])) {
                                 </div>
                                 <div class="btn-group" role="group">
                                     <select class="form-control" id="sel1" name="filtreDifficulte" >
-                                        <option value=""></option>
+                                        <option value="">Tout</option>
                                         <option value="Facile">Facile</option>
                                         <option value=Moyen>Moyen</option>
                                         <option value="Difficile">Difficile</option>

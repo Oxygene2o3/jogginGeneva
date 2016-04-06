@@ -246,6 +246,46 @@ function CheckLogin($name, $password) {
     return $logIsCorrect;
 }
 
+function getUserByName($nameUser){
+     // Initialisation d'une variable statiq pour la requete sql
+    static $maRequete = "";
+    
+    // Initialisation de la requete sql
+    $sql = "SELECT * from utilisateur WHERE NomUtilisateur = ?";
+    
+    // Test en cas d'exeption
+    try {
+        // Si la requete est bien null
+        if($maRequete == null){
+            // Connexion à la DB et préparation de la requete sql
+            $maRequete = ConnectDB()->prepare($sql);
+        }
+    } catch (Exception $e) {
+        // En cas d'erreur stop la fonction et retourne un message d'erreur
+        die("Une erreur est survenue lors de la préparation de la requete."
+                . $e->getMessage());
+    }
+    
+    // Initialisation d'une variable indique si l'ajout est reussi
+    $success = true;
+
+    // Test pour les exeption
+    try {
+        // Execution de la requete sql avec les variables
+        // en parametre de la fonction
+        $maRequete->execute(array($nameUser));
+        $data = $maRequete->fetch(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        // En cas d'exeption retourne false 
+        // pour indiquer que l'ajout est un echec
+        $success = false;
+    }
+
+    // Retourne un bool qui indique si l'ajout est reussi
+    
+        return $data;    
+}
+
 /**
  * Fonction d'ajout d'un nouveau parcours 
  * 
@@ -327,7 +367,7 @@ function printQuartier() {
     $myDB = connectDB();
     $myRequest = $myDB->prepare("SELECT idQuartier, NomQuartier FROM quartier");
     $myRequest->execute();
-    echo '<option value=""></option>';
+    echo '<option value="">Tout</option>';
     while ($data = $myRequest->fetch(PDO::FETCH_ASSOC)) {
         echo '<option value="' . $data["idQuartier"] . '">' . $data["NomQuartier"] . '</option>';
     }
@@ -380,8 +420,8 @@ function showFavoris($userName) {
     echo '<div class="panel-heading">Mes Favoris</div>';
     while ($data = $myRequest->fetch(PDO::FETCH_ASSOC)) {
         echo '<div class="panel-body">'
-                . '' . $data["NomParcours"] . ''
-                . '<a href="favoris.php?deleteParcoursId='.$data["idParcours"].'">Delete</a>'
+                . '<div id="divName">' . $data["NomParcours"] . '</div>'
+                . '<a href="profil.php?parcoursId='.$data["idParcours"].'"><div id="divIco"><span class="glyphicon glyphicon-trash"></span></div></a>'
                 . '</div>';
     }
     echo '</ul>';
@@ -389,16 +429,16 @@ function showFavoris($userName) {
 
 /**
  * Permet dêffacer un favoris
- * @param int $idUtilisateur    L'id de l'utilisateur
+ * @param int $nomUtilisateur    L'nom de l'utilisateur
  * @param int $idParcours       L'id du parcours
  */
-function deteleFav($idUtilisateur, $idParcours){
+function deleteFav($nomUtilisateur, $idParcours){
     // Connexion a la base de données
     $myDB = connectDB();
 
     // Requète pour effacer un champ dans la table favoris
     $myRequest = $myDB->prepare("DELETE FROM favoris WHERE idUtilisateur = ? AND idParcours = ?");
-    $myRequest->execute(array($idUtilisateur, $idParcours));
+    $myRequest->execute(array($nomUtilisateur, $idParcours));
 }
 
 // Marlon
