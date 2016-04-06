@@ -7,6 +7,7 @@ $idQuartier = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreQuartier"] : '';
 
 if (isset($_GET['idParcours'])) {
     AfficherParcoursSelectionne($_GET['idParcours']);
+    echo "OK";
 }
 ?>
 <!DOCTYPE html>
