@@ -4,6 +4,10 @@ require_once 'application.php';
 $difficulte = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreDifficulte"] : '';
 $longueur = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreLongueur"] : '';
 $idQuartier = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreQuartier"] : '';
+
+if (isset($_GET['idParcours'])) {
+    AfficherParcoursSelectionne($_GET['idParcours']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
