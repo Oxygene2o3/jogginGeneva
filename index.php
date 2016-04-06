@@ -68,15 +68,15 @@ if (isset($_GET['idParcours'])) {
                                 </div>
                                 <div class="btn-group" role="group">
                                     <select class="form-control" id="sel1" name="filtreDifficulte" >
-                                        <option value="">Tout</option>
-                                        <option value="Facile">Facile</option>
-                                        <option value=Moyen>Moyen</option>
-                                        <option value="Difficile">Difficile</option>
+                                        <option <?php if($difficulte=="")          echo 'selected="selected"'; ?> value="">Tout</option>
+                                        <option <?php if($difficulte=="Facile")    echo 'selected="selected"'; ?> value="Facile">Facile</option>
+                                        <option <?php if($difficulte=="Moyen")     echo 'selected="selected"'; ?> value="Moyen">Moyen</option>
+                                        <option <?php if($difficulte=="DIfficile") echo 'selected="selected"'; ?> value="Difficile">Difficile</option>
                                     </select>
                                 </div>    
                                 <div class="btn-group" role="group">
                                     <select class="form-control" id="sel1" name="filtreQuartier">
-                                        <?php printQuartier() ?>
+                                        <?php printQuartier($idQuartier) ?>
                                     </select>
                                 </div>    
                             </div>

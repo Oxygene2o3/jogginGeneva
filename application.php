@@ -362,14 +362,19 @@ function getCourses($difficulte, $longueur, $idQuartier) {
 
 /**
  * Affiche un select de chaque quartiers
+  * @param int $idQuartier    L'id du quartier pour le sticky form
  */
-function printQuartier() {
+function printQuartier($idQuartier) {
     $myDB = connectDB();
     $myRequest = $myDB->prepare("SELECT idQuartier, NomQuartier FROM quartier");
     $myRequest->execute();
     echo '<option value="">Tout</option>';
     while ($data = $myRequest->fetch(PDO::FETCH_ASSOC)) {
-        echo '<option value="' . $data["idQuartier"] . '">' . $data["NomQuartier"] . '</option>';
+        echo '<option ';
+		if($idQuartier==$data["idQuartier"]){
+			echo 'selected="selected" ';
+		}
+		echo 'value="' . $data["idQuartier"] . '">' . $data["NomQuartier"] . '</option>';
     }
 }
 
