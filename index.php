@@ -42,10 +42,6 @@ if (isset($_GET['idParcours'])) {
         <div class="container marketing">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    <p>Bienvenue dans JogginGeneva ! Vous voulez faire votre jogging, mais les parcours précédents ne vous ont pas satisfait ? Ne vous inquitez pas ! Dans JogginGeneva vous avez la possibilité de consulter notre liste des parcours qui peuvent être fitlrés par difficulté, cartier ou bien la distance totale !</p>
-                    <br>
-                    <p>Si JogginGeneva vous plait, nous vous proposons alors de vous créer un compte <b><a href="login.php">ici</a></b>. Grâce à ce compte vous aurez la possibilité d'ajouter les parcours qui vous plaisent dans votre liste de favoris.</p>
-                    <br>
                     <h3>Bon Jogging !!</h3>
                 </div>
             </div>

@@ -46,7 +46,10 @@ function menu() {
                                       .  ' glyphicon-home"></span> Home',
             
                         "login.php"   => '<span class="glyphicon'
-                                      .  ' glyphicon-user"></span> Login'  
+                                      .  ' glyphicon-user"></span> Login',
+            
+                        "about.php"   => '<span class="glyphicon'
+                                      .  ' glyphicon-paperclip"></span> About'
                         
         );
     } else {
