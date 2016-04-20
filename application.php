@@ -656,8 +656,8 @@ function SupprimerParcours($idParcours) {
 }
 
 function LectureParcours() {
-    if (isset($_REQUEST['id'])) {
-        $id = $_REQUEST['id'];
+    if (isset($_GET['idParcours'])) {
+        $id = $_GET['idParcours'];
         if ($id != "") {
             $_SESSION['idParcours'] = $id;
             $parcoursChoisi = $_SESSION['idParcours'];

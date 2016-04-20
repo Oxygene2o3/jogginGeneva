@@ -11,6 +11,7 @@ if (isset($_REQUEST["addParcoursId"])){
 
 if (isset($_GET['idParcours'])) {
     AfficherParcoursSelectionne($_GET['idParcours']);
+    LectureParcours();
 }
 ?>
 <!DOCTYPE html>
