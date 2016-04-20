@@ -34,7 +34,7 @@ if (isset($_GET['idParcours'])) {
         </script>
         <title>JogginGeneva</title>
     </head>
-    <body onresize="test()">
+    <body>
         <!-- MENU -->
         <div class="navbar-wrapper">
             <div class="container">
@@ -120,15 +120,6 @@ if (isset($_GET['idParcours'])) {
                 $(this).find('span').toggleClass('glyphicon-triangle-bottom glyphicon-triangle-top');
                 $(this).parent(".panel").find(".panel-body").first().slideToggle();
             });
-
-//             function test(){
-//                 var tempo = window.innerWidth;
-//                 
-//                 if(tempo <= 545)
-//                 {
-//                     alert("OK");
-//                 }
-//             }
         </script>
 <!--        <script>
             // DAMIANO
