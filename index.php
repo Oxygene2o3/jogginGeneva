@@ -129,7 +129,7 @@ if (isset($_GET['idParcours'])) {
                      alert("OK");
                  }
              }
-            // DAMIANO & MARLON
+            // DAMIANO
             <?php if(isset($_REQUEST['idParcours'])){?>
                 var liste_des_points=[
                     <?php echo ListePoints($_REQUEST['idParcours']); ?>
