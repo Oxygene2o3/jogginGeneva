@@ -41,7 +41,7 @@
 .list-group {
     padding-left: 0;
     margin-bottom: 0px;
-    height: 150px;
+    height: 300px;
     overflow: auto;
 }
 .list-group-item {
@@ -132,6 +132,11 @@
 #black
 {
     color: black;
+}
+
+#yellow
+{
+    color: #337AB7;
 }
 
 #divName{

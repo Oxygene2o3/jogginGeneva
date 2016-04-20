@@ -138,7 +138,7 @@ if (isset($_REQUEST["btnSubmit"])) {
             <!-- FOOTER -->
             <footer>
                 <p class="pull-right"><a href="#">&#x23CF;</a></p>
-                <p>&copy; </p>
+                <p class="footer">&copy; Marlon P.R. & Fabio D.B. & Alex A. & Damiano R. </p>
             </footer>
         </div>
 

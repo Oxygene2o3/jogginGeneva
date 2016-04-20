@@ -5,6 +5,7 @@ $difficulte = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreDifficulte"] : '';
 $longueur = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreLongueur"] : '';
 $idQuartier = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreQuartier"] : '';
 
+
 if (isset($_REQUEST["addParcoursId"])){
     favorite($_SESSION["user"]["idUtilisateur"], $_REQUEST["addParcoursId"]);
 }
@@ -65,7 +66,7 @@ if (isset($_GET['idParcours'])) {
                         <form action="" method="post">
                             <div class="btn-group btn-group-justified" role="group">    
                                 <div class="btn-group" role="group">
-                                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Longueur Max" name="filtreLongueur">
+                                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Longueur Max" name="filtreLongueur" value="<?php echo $longueur ?>">
                                 </div>
                                 <div class="btn-group" role="group">
                                     <select class="form-control" id="sel1" name="filtreDifficulte" >

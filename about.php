@@ -42,7 +42,7 @@ require_once 'application.php';
             <!-- FOOTER -->
             <footer>
                 <p class="pull-right"><a href="#">&#x23CF;</a></p>
-                <p>&copy; Marlon P.R. & Fabio D.B. & Alex A. & Damiano R. </p>
+                <p class="footer">&copy; Marlon P.R. & Fabio D.B. & Alex A. & Damiano R. </p>
             </footer>
         </div>
 

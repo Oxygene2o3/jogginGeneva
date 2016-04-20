@@ -415,7 +415,7 @@ function showCourses($difficulte, $longueur, $idQuartier) {
         echo '<tr>';
         if (isset($_SESSION["user"])) {
             if (!alreadyFav($_SESSION["user"]["idUtilisateur"], $value["idParcours"])) {
-                echo ' <td><a href="index.php?addParcoursId=' . $value["idParcours"] . '"><span class="glyphicon glyphicon-star" id="black"></span></a></td>';
+                echo ' <td><a href="index.php?addParcoursId=' . $value["idParcours"] . '"><span class="glyphicon glyphicon-star" id="yellow"></span></a></td>';
             } else {
                 echo ' <td><span class="glyphicon glyphicon-star-empty" id="black"></span></td>';
             }
