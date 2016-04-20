@@ -79,7 +79,7 @@ if (isset($_REQUEST["parcoursId"])){
             div.innerHTML = "";
             switch (Choice) {
                 case "Detail":
-                    Contenu = Choice;
+                    Contenu = '<?php echo '<p><h4>Binvenue sur votre page personelle monsieur/madame </h4>' . $_SESSION["user"]["NomUtilisateur"] ?></p>';
                     div.innerHTML = Contenu;
                     break;
                 case "Favoris":

@@ -10,7 +10,7 @@
 function ConnectDB() {
     // Création d'une variable pour la DB
     static $maDB = null;
-    
+
     // Test en cas d'exeption
     try {
         // Si la base de données est bien null
@@ -25,7 +25,7 @@ function ConnectDB() {
         // En cas d'erreur stop la fonction et retourne un message d'erreur
         die("Une erreur est survenue lors de la connexion." . $e->getMessage());
     }
-    
+
     // Retourne la DB
     return $maDB;
 }
@@ -42,26 +42,22 @@ function menu() {
     // Si personne n'est connecté
     if (empty($_SESSION['user_logged'])) {
         // Ajoute du code HTML pour crée un menu d'utilisateur non-connecté
-        $menu = array(  "index.php"   => '<span class="glyphicon'
-                                      .  ' glyphicon-home"></span> Home',
-            
-                        "login.php"   => '<span class="glyphicon'
-                                      .  ' glyphicon-user"></span> Login',
-            
-                        "about.php"   => '<span class="glyphicon'
-                                      .  ' glyphicon-paperclip"></span> About'
-                        
+        $menu = array("index.php" => '<span class="glyphicon'
+            . ' glyphicon-home"></span> Home',
+            "login.php" => '<span class="glyphicon'
+            . ' glyphicon-user"></span> Login',
+            "about.php" => '<span class="glyphicon'
+            . ' glyphicon-paperclip"></span> About'
         );
     } else {
         // Sinon l'utilisateur est connecté
         // Ajoute du code HTML pour crée un menu d'utilisateur connecté
-        $menu = array(  "index.php"   => '<span class="glyphicon'
-                                      .  ' glyphicon-home"></span> Home',
-            
-                        "profil.php"  => '<span class="glyphicon'
-                                      .  ' glyphicon-info-sign"></span> Profil',
-                         "logout.php"  => '<span class="glyphicon '
-                                      . 'glyphicon-remove" id="red"></span> Logout'
+        $menu = array("index.php" => '<span class="glyphicon'
+            . ' glyphicon-home"></span> Home',
+            "profil.php" => '<span class="glyphicon'
+            . ' glyphicon-info-sign"></span> Profil',
+            "logout.php" => '<span class="glyphicon '
+            . 'glyphicon-remove" id="red"></span> Logout'
         );
     }
     // La suite est du code pour du BOOTSTRAP
@@ -109,15 +105,15 @@ function menu() {
 function AddUser($name, $password) {
     // Initialisation d'une variable statiq pour la requete sql
     static $maRequete = "";
-    
+
     // Initialisation de la requete sql
     $sql = "INSERT INTO utilisateur "
             . "(NomUtilisateur, mdpUtilisateur) VALUES (?, ?)";
-    
+
     // Test en cas d'exeption
     try {
         // Si la requete est bien null
-        if($maRequete == null){
+        if ($maRequete == null) {
             // Connexion à la DB et préparation de la requete sql
             $maRequete = ConnectDB()->prepare($sql);
         }
@@ -126,7 +122,7 @@ function AddUser($name, $password) {
         die("Une erreur est survenue lors de la préparation de la requete."
                 . $e->getMessage());
     }
-    
+
     // Initialisation d'une variable indique si l'ajout est reussi
     $addIsSucess = true;
 
@@ -158,14 +154,14 @@ function AddUser($name, $password) {
 function DelUser($name) {
     // Initialisation d'une variable statiq pour la requete sql
     static $maRequete = "";
-    
+
     // Initialisation de la requete sql
     $sql = "DELETE FROM utilisateur WHERE NomUtilisateur = ?";
-    
+
     // Test en cas d'exeption
     try {
         // Si la requete est bien null
-        if($maRequete == null){
+        if ($maRequete == null) {
             // Connexion à la DB et préparation de la requete sql
             $maRequete = ConnectDB()->prepare($sql);
         }
@@ -174,7 +170,7 @@ function DelUser($name) {
         die("Une erreur est survenue lors de la préparation de la requete."
                 . $e->getMessage());
     }
-    
+
     // Initialisation d'une variable indique si la suppression est reussi
     $delIsSucess = true;
 
@@ -207,14 +203,14 @@ function DelUser($name) {
 function CheckLogin($name, $password) {
     // Initialisation d'une variable statiq pour la requete sql
     static $maRequete = "";
-    
+
     // Initialisation de la requete sql
     $sql = "Select * from utilisateur where NomUtilisateur = ? AND mdpUtilisateur = ?";
 
     // Test en cas d'exeption
     try {
         // Si la requete est bien null
-        if($maRequete == null){
+        if ($maRequete == null) {
             // Connexion à la DB et préparation de la requete sql
             $maRequete = ConnectDB()->prepare($sql);
         }
@@ -249,17 +245,17 @@ function CheckLogin($name, $password) {
     return $logIsCorrect;
 }
 
-function getUserByName($nameUser){
-     // Initialisation d'une variable statiq pour la requete sql
+function getUserByName($nameUser) {
+    // Initialisation d'une variable statiq pour la requete sql
     static $maRequete = "";
-    
+
     // Initialisation de la requete sql
     $sql = "SELECT * from utilisateur WHERE NomUtilisateur = ?";
-    
+
     // Test en cas d'exeption
     try {
         // Si la requete est bien null
-        if($maRequete == null){
+        if ($maRequete == null) {
             // Connexion à la DB et préparation de la requete sql
             $maRequete = ConnectDB()->prepare($sql);
         }
@@ -268,7 +264,7 @@ function getUserByName($nameUser){
         die("Une erreur est survenue lors de la préparation de la requete."
                 . $e->getMessage());
     }
-    
+
     // Initialisation d'une variable indique si l'ajout est reussi
     $success = true;
 
@@ -285,8 +281,8 @@ function getUserByName($nameUser){
     }
 
     // Retourne un bool qui indique si l'ajout est reussi
-    
-        return $data;    
+
+    return $data;
 }
 
 /**
@@ -302,20 +298,19 @@ function getUserByName($nameUser){
  * @return boolean          Si l'ajout est un succès retourne VRAIE
  *                          Sinon FAUX
  */
-function AddCourse($NomParcours, $LongueurParcours,
-                   $DifficulteParcours, $idQuartier) {
+function AddCourse($NomParcours, $LongueurParcours, $DifficulteParcours, $idQuartier) {
     // Initialisation d'une variable statiq pour la requete sql
     static $maRequete = "";
-    
+
     // Initialisation de la requete sql
     $sql = "INSERT INTO parcours "
             . "(NomParcours, LongueurParcours, DifficulteParcours, idQuartier) "
             . "VALUES (?, ?, ?, ?)";
-    
+
     // Test en cas d'exeption
     try {
         // Si la requete est bien null
-        if($maRequete == null){
+        if ($maRequete == null) {
             // Connexion à la DB et préparation de la requete sql
             $maRequete = ConnectDB()->prepare($sql);
         }
@@ -324,7 +319,7 @@ function AddCourse($NomParcours, $LongueurParcours,
         die("Une erreur est survenue lors de la préparation de la requete."
                 . $e->getMessage());
     }
-    
+
     // Initialisation d'une variable indique si l'ajout est reussi
     $addIsSucess = true;
 
@@ -333,7 +328,7 @@ function AddCourse($NomParcours, $LongueurParcours,
         // Execution de la requete sql avec les variables
         // en parametre de la fonction
         $maRequete->execute(array($NomParcours, $LongueurParcours,
-                                  $DifficulteParcours, $idQuartier));
+            $DifficulteParcours, $idQuartier));
     } catch (Exception $e) {
         // En cas d'exeption retourne false 
         // pour indiquer que l'ajout est un echec
@@ -365,7 +360,7 @@ function getCourses($difficulte, $longueur, $idQuartier) {
 
 /**
  * Affiche un select de chaque quartiers
-  * @param int $idQuartier    L'id du quartier pour le sticky form
+ * @param int $idQuartier    L'id du quartier pour le sticky form
  */
 function printQuartier($idQuartier) {
     $myDB = connectDB();
@@ -374,10 +369,28 @@ function printQuartier($idQuartier) {
     echo '<option value="">Tout</option>';
     while ($data = $myRequest->fetch(PDO::FETCH_ASSOC)) {
         echo '<option ';
-		if($idQuartier==$data["idQuartier"]){
-			echo 'selected="selected" ';
-		}
-		echo 'value="' . $data["idQuartier"] . '">' . $data["NomQuartier"] . '</option>';
+        if ($idQuartier == $data["idQuartier"]) {
+            echo 'selected="selected" ';
+        }
+        echo 'value="' . $data["idQuartier"] . '">' . $data["NomQuartier"] . '</option>';
+    }
+}
+
+/**
+ * Vérifie si le favoris associé a l'utilisateur éxiste
+ * @param int $idUtilisateur    ID de l'utilisateur
+ * @param int $idParcours       ID du parcours
+ * @return boolean              Return true si le favoris éxiste
+ */
+function alreadyFav($idUtilisateur, $idParcours) {
+    $myDB = connectDB();
+    $myRequest = $myDB->prepare("SELECT * FROM favoris WHERE idUtilisateur = $idUtilisateur AND idParcours = $idParcours");
+    $myRequest->execute();
+    $data = $myRequest->fetch(PDO::FETCH_ASSOC);
+    if (empty($data)) {
+        return false;
+    } else {
+        return true;
     }
 }
 
@@ -388,31 +401,31 @@ function printQuartier($idQuartier) {
  * @param int $idQuartier       Le quartier a afficher
  */
 function showCourses($difficulte, $longueur, $idQuartier) {
-    
     // récumère les informations sur les parcours
     $courses = getCourses($difficulte, $longueur, $idQuartier);
     // Affiche un message si sucun parcour ne correspond aux critaires
     if (empty($courses)) {
-        echo 'Aucun parcours ne correspond à vos critères';
+        echo 'Aucun parcours ne correspond a vos critaires';
     }
-    
+
     // Affichage web
     foreach ($courses as $value) {
-        echo '<li class="list-group-item">';
-        echo '<table class="listeParcours">';
+
+        echo '<table class="table">';
         echo '<tr>';
-        echo '<td><a href="index.php?idParcours='.$value["idParcours"].'">' . $value["NomParcours"] . '</a>';
-		if (isset($_SESSION["user"])){
-			echo ' <a href="index.php?addParcoursId='.$value["idParcours"].'"><span class="glyphicon glyphicon-star"></span></a>';
-                        
-		}
-		echo '</td>';
+        if (isset($_SESSION["user"])) {
+            if (!alreadyFav($_SESSION["user"]["idUtilisateur"], $value["idParcours"])) {
+                echo ' <td><a href="index.php?addParcoursId=' . $value["idParcours"] . '"><span class="glyphicon glyphicon-star" id="black"></span></a></td>';
+            } else {
+                echo ' <td><span class="glyphicon glyphicon-star-empty" id="black"></span></td>';
+            }
+        }
+        echo '<td><a href="index.php?idParcours=' . $value["idParcours"] . '">' . $value["NomParcours"] . '</a>' . '</td>';
         echo '<td>' . number_format($value["LongueurParcours"], 1, ',', ' ') . ' </td>';
         echo '<td>' . $value["DifficulteParcours"] . '</td>';
         echo '<td>' . $value["NomQuartier"] . '</td>';
         echo '</tr>';
         echo '</table>';
-        echo '</li>';
     }
 }
 
@@ -425,7 +438,7 @@ function showFavoris($userName) {
     $myDB = connectDB();
 
     // Requète pour récupérer les favoris de l'utilisateurs
-    $myRequest = $myDB->prepare("SELECT favoris.idParcours, favoris.idUtilisateur, parcours.NomParcours FROM parcours, favoris, utilisateur WHERE parcours.idParcours = favoris.idParcours AND favoris.idUtilisateur = utilisateur.idUtilisateur AND utilisateur.NomUtilisateur = '$userName'");
+    $myRequest = $myDB->prepare("SELECT DISTINCT favoris.idParcours, favoris.idUtilisateur, parcours.NomParcours FROM parcours, favoris, utilisateur WHERE parcours.idParcours = favoris.idParcours AND favoris.idUtilisateur = utilisateur.idUtilisateur AND utilisateur.NomUtilisateur = '$userName'");
     $myRequest->execute();
 
     // Affichage web
@@ -433,9 +446,9 @@ function showFavoris($userName) {
     echo '<div class="panel-heading">Mes Favoris</div>';
     while ($data = $myRequest->fetch(PDO::FETCH_ASSOC)) {
         echo '<div class="panel-body">'
-                . '<div id="divName">' . $data["NomParcours"] . '</div>'
-                . '<a href="profil.php?parcoursId='.$data["idParcours"].'"><div id="divIco"><span class="glyphicon glyphicon-trash"></span></div></a>'
-                . '</div>';
+        . '<div id="divName">' . $data["NomParcours"] . '</div>'
+        . '<a href="profil.php?parcoursId=' . $data["idParcours"] . '"><div id="divIco"><span class="glyphicon glyphicon-trash"></span></div></a>'
+        . '</div>';
     }
     echo '</ul>';
 }
@@ -445,7 +458,7 @@ function showFavoris($userName) {
  * @param int $nomUtilisateur    L'nom de l'utilisateur
  * @param int $idParcours       L'id du parcours
  */
-function deleteFav($nomUtilisateur, $idParcours){
+function deleteFav($nomUtilisateur, $idParcours) {
     // Connexion a la base de données
     $myDB = connectDB();
 
@@ -486,18 +499,16 @@ function myAccount($username) {
         }
         echo '<tbody>';
         echo '<tr>';
-        
+
         foreach ($data as $key => $val) {
-            
+
             echo '<td>' . $val . '</td>';
-            
         }
         echo '</tr>';
     }
     echo '</tbody>';
     echo "</table>";
     echo '</li>';
-
 }
 
 /**
@@ -507,20 +518,19 @@ function myAccount($username) {
  * @param   int     $idUtilisateur      ID de l'utilisateur.
  * @param   int     $idParcours         ID du parcours.
  */
-function favorite($idUtilisateur, $idParcours){
-    
+function favorite($idUtilisateur, $idParcours) {
+
     // Connexion bade de données
     $db = ConnectDB();
-    
+
     // Ajouter le l'id du parcours et l'id de l'utlisateur dans la table "favoris"
     $sqlAdd = ("INSERT INTO favoris (idUtilisateur,idParcours) VALUES (?,?);");
-    
+
     // Nous faisons la prération
     $add = $db->prepare($sqlAdd);
-    
+
     // Nous exécutons
-    $add->execute(array($idUtilisateur,$idParcours));        
-    
+    $add->execute(array($idUtilisateur, $idParcours));
 }
 
 /**
@@ -531,25 +541,24 @@ function favorite($idUtilisateur, $idParcours){
  * @param   string      $nomUtilisateur         Nom de l'utilisateur.
  * @param   string      $mdpUtilisateur         Password
  */
-function updateUser($idUtilisateur, $nomUtilisateur, $mdpUtilisateur){
-    
-    
+function updateUser($idUtilisateur, $nomUtilisateur, $mdpUtilisateur) {
+
+
     $db = ConnectDB();
-    
-    
+
+
     $sqlUpdate = ("UPDATE utilisateur SET NomUilisateur=:nomUtilisateur, mdpUtilisateur=:mdpUtilisateur WHERE idUtilisateur=:idUtilisateur;");
-    
-    
+
+
     $update = $db->prepare($sqlUpdate);
-    
+
     // Nous lions les valeurs aux variables
     $update->bindValue(":nomUtilisateur", $nomUtilisateur);
     $update->bindValue(":mdpUtilisateur", $mdpUtilisateur);
     $update->bindValue(":idUtilisateur", $idUtilisateur);
-    
+
     // Nous exécutons
-    $update->execute();        
-    
+    $update->execute();
 }
 
 function verifieUser($nom, $motDePasse) {
@@ -646,6 +655,7 @@ function CountPointParcours($idParcours) {
     ));
     return $requete->fetch()[0];
 }
+
 function SupprimerParcours($idParcours) {
     $bdd = ConnectDB();
     $sql = 'DELETE FROM parcours WHERE idParcours = :idParcours';
@@ -743,23 +753,18 @@ function AfficherQuartier() {
     return $requete->fetchAll();
 }
 
-
-
-
-
-function ListePoints($idParcoursSelectionne){
+function ListePoints($idParcoursSelectionne) {
     $rlt = "";
-    
+
     $lat = GetLatitude($idParcoursSelectionne);
     $lon = GetLongitude($idParcoursSelectionne);
-    
-    for($i = 0; $i < count($lat); $i++)
-    {
+
+    for ($i = 0; $i < count($lat); $i++) {
         $rlt .= "[" + $lat[$i] + "," + $lon[$i] + "]";
-        if($i < count($lat)){
+        if ($i < count($lat)) {
             $rlt .= ",";
         }
     }
-    
+
     return $rlt;
 }

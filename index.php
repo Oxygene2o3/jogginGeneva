@@ -86,14 +86,12 @@ if (isset($_GET['idParcours'])) {
                                     <button type="submit" class="btn btn-info" name="filtre">Filtrer</button>
                                 </div>
                             </div>
-                        </form>
+                        </form>   
                         <?php showCourses($difficulte, $longueur, $idQuartier) ?>
-                        <div id="fleche">
-                            
-                        </div>
                     </ul>
-                </div>
+                </div>            
             </div>
+            
             <!-- MAP -->
             <div id="Map">
                 <p>Veuillez patienter pendant le chargement de la carte...</p>
@@ -102,7 +100,7 @@ if (isset($_GET['idParcours'])) {
             <!-- FOOTER -->
             <footer>
                 <p class="pull-right"><a href="#">&#x23CF;</a></p>
-                <p>&copy; Marlon P.R. & Fabio D.B. & Alex A. & Damiano R. </p>
+                <p class="footer">&copy; Marlon P.R. & Fabio D.B. & Alex A. & Damiano R. </p>
             </footer>
         </div>
 
@@ -122,14 +120,16 @@ if (isset($_GET['idParcours'])) {
                 $(this).parent(".panel").find(".panel-body").first().slideToggle();
             });
 
-             function test(){
-                 var tempo = window.innerWidth;
-                 
-                 if(tempo <= 545)
-                 {
-                     alert("OK");
-                 }
-             }
+//             function test(){
+//                 var tempo = window.innerWidth;
+//                 
+//                 if(tempo <= 545)
+//                 {
+//                     alert("OK");
+//                 }
+//             }
+        </script>
+<!--        <script>
             // DAMIANO
             <?php if(isset($_REQUEST['idParcours'])){?>
                 var liste_des_points=[
@@ -146,6 +146,6 @@ if (isset($_GET['idParcours'])) {
                   i++;
                 } 
             <?php }?>
-        </script>
+        </script>-->
     </body>
 </html>
