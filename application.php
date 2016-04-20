@@ -404,6 +404,7 @@ function showCourses($difficulte, $longueur, $idQuartier) {
         echo '<td><a href="index.php?idParcours='.$value["idParcours"].'">' . $value["NomParcours"] . '</a>';
 		if (isset($_SESSION["user"])){
 			echo ' <a href="index.php?addParcoursId='.$value["idParcours"].'"><span class="glyphicon glyphicon-star"></span></a>';
+                        
 		}
 		echo '</td>';
         echo '<td>' . number_format($value["LongueurParcours"], 1, ',', ' ') . ' </td>';

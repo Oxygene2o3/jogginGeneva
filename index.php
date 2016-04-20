@@ -46,7 +46,7 @@ if (isset($_GET['idParcours'])) {
         <div class="container marketing">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    <h3>Bon Jogging !!</h3>
+                    <h3>Bon Jogging !</h3>
                 </div>
             </div>
 
