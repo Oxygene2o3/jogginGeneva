@@ -146,7 +146,6 @@ if (isset($_GET['idParcours'])) {
                   i++;
                 } 
             <?php }?>
-
         </script>
     </body>
 </html>
