@@ -546,7 +546,8 @@ function updateUser($idUtilisateur, $nomUtilisateur, $mdpUtilisateur) {
 
     $db = ConnectDB();
 
-
+    $sha1edPass = sha1($mdpUtilisateur);
+    
     $sqlUpdate = ("UPDATE utilisateur SET NomUilisateur=:nomUtilisateur, mdpUtilisateur=:mdpUtilisateur WHERE idUtilisateur=:idUtilisateur;");
 
 
@@ -554,7 +555,7 @@ function updateUser($idUtilisateur, $nomUtilisateur, $mdpUtilisateur) {
 
     // Nous lions les valeurs aux variables
     $update->bindValue(":nomUtilisateur", $nomUtilisateur);
-    $update->bindValue(":mdpUtilisateur", $mdpUtilisateur);
+    $update->bindValue(":mdpUtilisateur", $sha1edPass);
     $update->bindValue(":idUtilisateur", $idUtilisateur);
 
     // Nous exécutons
