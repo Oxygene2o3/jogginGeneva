@@ -48,7 +48,7 @@ if (isset($_GET['idParcours'])) {
         <div class="container marketing">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    <img alt="logo" src="images/JGA.png" />
+                    <img style="width: 200px; height: 200px;" alt="logo" src="images/JGA.png" />
                 </div>
             </div>
 
