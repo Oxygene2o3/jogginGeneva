@@ -56,7 +56,7 @@ if (isset($_GET['idParcours'])) {
             <div class="panel panel-default panel-dropdown">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Liste de parcours
+                        Liste des parcours
                         <span class="pull-right glyphicon glyphicon-triangle-top"></span>
                     </h3>
                 </div>
