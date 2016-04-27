@@ -1,5 +1,10 @@
 <?php
 
+if (isset($_POST['idParcours'])) {
+    echo ListePoints($_POST['idParcours']);
+}
+
+
 /**
  * Fonction de connexion à la DB
  * 
@@ -415,12 +420,12 @@ function showCourses($difficulte, $longueur, $idQuartier) {
         echo '<tr>';
         if (isset($_SESSION["user"])) {
             if (!alreadyFav($_SESSION["user"]["idUtilisateur"], $value["idParcours"])) {
-                echo ' <td><a href="index.php?addParcoursId=' . $value["idParcours"] . '"><span class="glyphicon glyphicon-star" id="yellow"></span></a></td>';
+                echo ' <td><a onclick="initMapParcours('.$value["idParcours"].')"><span class="glyphicon glyphicon-star" id="yellow"></span></a></td>';
             } else {
                 echo ' <td><span class="glyphicon glyphicon-star-empty" id="black"></span></td>';
             }
         }
-        echo '<td><a href="index.php?idParcours=' . $value["idParcours"] . '">' . $value["NomParcours"] . '</a>' . '</td>';
+        echo '<td><a onclick="initMapParcours('.$value["idParcours"].')">' . $value["NomParcours"] . '</a>' . '</td>';
         echo '<td>' . number_format($value["LongueurParcours"], 1, ',', ' ') . ' </td>';
         echo '<td>' . $value["DifficulteParcours"] . '</td>';
         echo '<td>' . $value["NomQuartier"] . '</td>';
@@ -647,6 +652,21 @@ function GetLongitude($idParcoursSelectionne) {
     return $requete->fetchAll();
 }
 
+
+
+
+
+function GetLatLon($idParcoursSelectionne) {
+    $bdd = ConnectDB();
+    $sql = 'SELECT Latitude,Longitude FROM pointsparcours WHERE idParcours = :idParcoursSelectionne';
+    $requete = $bdd->prepare($sql);
+    $requete->execute(array('idParcoursSelectionne' => $idParcoursSelectionne));
+    return $requete->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+
+
 function CountPointParcours($idParcours) {
     $bdd = ConnectDB();
     $sql = 'SELECT COUNT(*) FROM `pointsparcours` WHERE `idParcours` = :id';
@@ -755,17 +775,6 @@ function AfficherQuartier() {
 }
 
 function ListePoints($idParcoursSelectionne) {
-    $rlt = "";
-
-    $lat = GetLatitude($idParcoursSelectionne);
-    $lon = GetLongitude($idParcoursSelectionne);
-
-    for ($i = 0; $i < count($lat); $i++) {
-        $rlt .= "[" + $lat[$i] + "," + $lon[$i] + "]";
-        if ($i < count($lat)) {
-            $rlt .= ",";
-        }
-    }
-
-    return $rlt;
+    // Encodage en Json
+    return json_encode(GetLatLon($idParcoursSelectionne));
 }

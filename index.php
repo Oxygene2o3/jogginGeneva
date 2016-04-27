@@ -9,11 +9,6 @@ $idQuartier = (isset($_REQUEST["filtre"])) ? $_REQUEST["filtreQuartier"] : '';
 if (isset($_REQUEST["addParcoursId"])){
     favorite($_SESSION["user"]["idUtilisateur"], $_REQUEST["addParcoursId"]);
 }
-
-if (isset($_GET['idParcours'])) {
-    AfficherParcoursSelectionne($_GET['idParcours']);
-    LectureParcours();
-}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -121,23 +116,5 @@ if (isset($_GET['idParcours'])) {
                 $(this).parent(".panel").find(".panel-body").first().slideToggle();
             });
         </script>
-<!--        <script>
-            // DAMIANO
-            <?php if(isset($_REQUEST['idParcours'])){?>
-                var liste_des_points=[
-                    <?php echo ListePoints($_REQUEST['idParcours']); ?>
-                ];
-
-                var i=0,li=liste_des_points.length;
-                while(i<li){
-                  new google.maps.Marker({
-                          position: new google.maps.LatLng(liste_des_points[i][0], liste_des_points[i][1]),
-                          map: map,
-                          title: "Marqueur-"+i
-                     });
-                  i++;
-                } 
-            <?php }?>
-        </script>-->
     </body>
 </html>
